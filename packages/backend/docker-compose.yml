@@ -4,7 +4,7 @@ services:
     command: node dist/main.js
     env_file: ./.env
     ports:
-      - '3444:3001'
+      - '3222:3001'
     depends_on:
       - mongo
   mongo:
@@ -15,7 +15,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${DB_ROOT_PASS}
     command: --quiet
     ports:
-      - '34445:27017'
+      - '3223:27017'
     volumes:
       - ./database_volume:/data/db
 volumes:
