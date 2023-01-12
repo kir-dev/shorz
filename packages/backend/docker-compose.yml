@@ -4,13 +4,13 @@ services:
     command: node dist/main.js
     env_file: ./.env
     ports:
-      - '3334:3001'
+      - '3444:3001'
     depends_on:
       - mongo
   mongo:
     image: 'mongo'
     environment:
-      - MONGO_INITDB_DATABASE=indulasch
+      - MONGO_INITDB_DATABASE=shorz
       - MONGO_INITDB_ROOT_USERNAME=${DB_ROOT_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${DB_ROOT_PASS}
     command: --quiet
