@@ -15,7 +15,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${DB_ROOT_PASS}
     command: --quiet
     ports:
-      - '3335:27017'
+      - '34445:27017'
     volumes:
       - ./database_volume:/data/db
 volumes:
