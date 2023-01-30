@@ -33,13 +33,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState<string>();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const token = searchParams.get('access_token') || localStorage.getItem('token');
     if (token) {
       login(token);
-    } else {
-      logout();
     }
   }, []);
 

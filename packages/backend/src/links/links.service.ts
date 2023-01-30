@@ -27,6 +27,7 @@ export class LinksService {
 
   async getLinkByShortId(shortId: string, saveTime = true): Promise<LinkDocument | undefined> {
     const link = await this.linkModel.findOne({ shortId });
+    if (!link) return null;
     if (saveTime) {
       this.linkModel
         .updateOne({ _id: link._id }, { $set: { timestamps: [...link.timestamps, Date.now()] } })

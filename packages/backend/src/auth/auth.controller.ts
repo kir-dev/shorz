@@ -18,7 +18,7 @@ export class AuthController {
   @Get('callback')
   async callback(@Request() req, @Res() res) {
     const { access_token } = await this.authService.login(req.user);
-    const redirectUrl = new URL(this.configService.get(ConfigKeys.ADMIN_SITE_CALLBACK));
+    const redirectUrl = new URL(this.configService.get(ConfigKeys.ADMIN_SITE) + '/login');
     redirectUrl.searchParams.append('access_token', access_token);
     res.redirect(301, redirectUrl.toString());
   }
