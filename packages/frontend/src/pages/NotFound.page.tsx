@@ -2,12 +2,13 @@ import { Page } from '../layout/Page';
 import { TbQuestionMark } from 'react-icons/tb';
 import { Box, Button, CardBody, CardFooter, Heading, Text, VStack } from '@chakra-ui/react';
 import { l } from '../utils/language';
-import { useNavigate } from 'react-router-dom';
-import { UIPaths } from '../config/paths.config';
 
-export function NotFoundPage() {
-  const navigate = useNavigate();
-  const onAction = () => navigate(UIPaths.DASHBOARD);
+interface NotFoundPageProps {
+  onAction: () => void;
+  actionLabel: string;
+}
+
+export function NotFoundPage({ onAction, actionLabel }: NotFoundPageProps) {
   return (
     <Page title={l('title.notFound')}>
       <CardBody>
@@ -20,7 +21,7 @@ export function NotFoundPage() {
         </VStack>
       </CardBody>
       <CardFooter justifyContent='center'>
-        <Button onClick={onAction}>{l('title.dashboard')}</Button>
+        <Button onClick={onAction}>{actionLabel}</Button>
       </CardFooter>
     </Page>
   );

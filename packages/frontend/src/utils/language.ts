@@ -43,6 +43,7 @@ const languageData = {
   'page.error.text': 'Ha ezt elküldöd nekünk, nem történik meg később.',
   'page.notFound.heading': 'Egy jéghideg mit kérsz?',
   'page.notFound.text': 'Ilyen oldal nem létezik, vagy nincs jogosultságod hozzá.',
+  'page.notFound.actionLabel': 'Amúgy mi az a Shorz?',
   'page.login.text':
     'Jelentkezz be AuthSch fiókoddal! A profilod automatikusan létrejön az első bejelentkezés alkalmával.',
   'page.login.button': 'Bejelentkezés AuthSch-val',

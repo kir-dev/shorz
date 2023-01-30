@@ -1,7 +1,7 @@
 import * as process from 'process';
 
 export default () => ({
-  admin_site_callback: process.env.ADMIN_SITE_CALLBACK,
+  admin_site: process.env.ADMIN_SITE,
   authSch_client_id: process.env.AUTHSCH_CLIENT_ID,
   authSch_client_secret: process.env.AUTHSCH_CLIENT_SECRET,
   mongodbUri: process.env.MONGODB_URI,
@@ -11,7 +11,7 @@ export default () => ({
 });
 
 export enum ConfigKeys {
-  ADMIN_SITE_CALLBACK = 'admin_site_callback',
+  ADMIN_SITE = 'admin_site',
   AUTHSCH_CLIENT_ID = 'authSch_client_id',
   AUTHSCH_CLIENT_SECRET = 'authSch_client_secret',
   EXPIRATION = 'expiration',

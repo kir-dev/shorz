@@ -7,6 +7,7 @@ export enum UIPaths {
   NEW_LINK = '/link/new',
   DASHBOARD = '/dashboard',
   PROFILE = '/profile',
+  NOT_FOUND = '/404',
 }
 
 export enum ApiPaths {
