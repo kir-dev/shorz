@@ -6,6 +6,7 @@ import { AdminNavigator } from './Admin.navigator';
 import { MainLayout } from '../layout/MainLayout';
 import { NotFoundPage } from '../pages/NotFound.page';
 import { l } from '../utils/language';
+import { LandingPage } from '../pages/Landing.page';
 
 export function RootNavigator() {
   const { isAuthenticated } = useAuthContext();
@@ -15,10 +16,11 @@ export function RootNavigator() {
     <MainLayout>
       <Routes>
         <Route path={UIPaths.LOGIN} element={<SsoLoginPage />} />
+        <Route index element={<LandingPage />} />
         <Route
           path='*'
           element={
-            <NotFoundPage onAction={() => navigate(UIPaths.LOGIN)} actionLabel={l('page.notFound.actionLabel')} />
+            <NotFoundPage onAction={() => navigate(UIPaths.ROOT)} actionLabel={l('page.notFound.actionLabel')} />
           }
         />
       </Routes>
