@@ -23,7 +23,7 @@ export function DrawerMenu() {
           <DrawerCloseButton />
           <DrawerBody
             onClick={(e) => {
-              if ((e.target as Element).closest('button')) onClose();
+              if ((e.target as Element).closest('button:not(.chakra-menu__menu-button)')) onClose();
             }}
           >
             <NavBar />
