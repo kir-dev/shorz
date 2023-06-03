@@ -1,7 +1,7 @@
 import { Box, useColorModeValue } from '@chakra-ui/react';
-import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { useMemo } from 'react';
 import { format, isSameDay, subDays } from 'date-fns';
+import { useMemo } from 'react';
+import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 interface ClickChartProps {
   timestamps: number[];

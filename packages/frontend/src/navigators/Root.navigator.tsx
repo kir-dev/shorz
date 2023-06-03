@@ -1,12 +1,13 @@
 import { Route, Routes, useNavigate } from 'react-router-dom';
+
 import { UIPaths } from '../config/paths.config';
-import { SsoLoginPage } from '../pages/SsoLogin.page';
 import { useAuthContext } from '../context/auth.context';
-import { AdminNavigator } from './Admin.navigator';
 import { MainLayout } from '../layout/MainLayout';
-import { NotFoundPage } from '../pages/NotFound.page';
-import { l } from '../utils/language';
 import { LandingPage } from '../pages/Landing.page';
+import { NotFoundPage } from '../pages/NotFound.page';
+import { SsoLoginPage } from '../pages/SsoLogin.page';
+import { l } from '../utils/language';
+import { AdminNavigator } from './Admin.navigator';
 
 export function RootNavigator() {
   const { isAuthenticated } = useAuthContext();

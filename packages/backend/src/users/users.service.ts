@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model, Types, UpdateWriteOpResult } from 'mongoose';
 import { User, UserDocument } from '../schemas/users.schema';
 import { OauthProfile } from '../types/auth.types';
 
@@ -40,5 +40,9 @@ export class UsersService {
 
   async getUserByAuthSchId(authSchId: string): Promise<UserDocument | undefined> {
     return this.userModel.findOne({ authSchId });
+  }
+
+  async setUserAdminRole(userId: string, isAdmin: boolean): Promise<UpdateWriteOpResult | undefined> {
+    return this.userModel.updateOne({ _id: userId }, { $set: { isAdmin } });
   }
 }

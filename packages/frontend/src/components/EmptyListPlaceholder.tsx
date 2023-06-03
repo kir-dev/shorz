@@ -1,6 +1,7 @@
 import { Text, VStack } from '@chakra-ui/react';
-import { l } from '../utils/language';
 import { HiArrowDown } from 'react-icons/hi2';
+
+import { l } from '../utils/language';
 
 interface EmptyListPlaceholderProps {
   text?: string;

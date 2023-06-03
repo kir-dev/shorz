@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+
 import { UIPaths } from '../config/paths.config';
 
 type Document<T> = {
@@ -7,14 +8,6 @@ type Document<T> = {
 
 export type UserDocument = Document<User>;
 export type LinkDocument = Document<Link>;
-
-export const DummyLink: LinkDocument = {
-  _id: '',
-  name: '',
-  shortId: '',
-  url: '',
-  timestamps: [],
-};
 
 export type User = {
   displayName: string;

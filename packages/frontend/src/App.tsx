@@ -1,12 +1,14 @@
-import React from 'react';
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
-import { BrowserRouter } from 'react-router-dom';
-import { RootNavigator } from './navigators/Root.navigator';
+import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { QueryClientProvider } from 'react-query';
+import { BrowserRouter } from 'react-router-dom';
+
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { initAxios, queryClient } from './config/api.config';
 import theme from './config/theme';
 import { AuthProvider } from './context/auth.context';
-import { initAxios } from './config/api.config';
-import { ErrorBoundary } from './components/ErrorBoundary';
+import { RootNavigator } from './navigators/Root.navigator';
 
 initAxios();
 
@@ -16,11 +18,13 @@ function App() {
       <BrowserRouter>
         <ChakraProvider theme={theme}>
           <ErrorBoundary>
-            <AuthProvider>
-              <Helmet titleTemplate='%s | Shorz Admin' />
-              <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-              <RootNavigator />
-            </AuthProvider>
+            <QueryClientProvider client={queryClient}>
+              <AuthProvider>
+                <Helmet titleTemplate='%s | Shorz Admin' />
+                <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+                <RootNavigator />
+              </AuthProvider>
+            </QueryClientProvider>
           </ErrorBoundary>
         </ChakraProvider>
       </BrowserRouter>

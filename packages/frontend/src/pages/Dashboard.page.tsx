@@ -1,11 +1,12 @@
-import { Page } from '../layout/Page';
-import { l } from '../utils/language';
-import { useLinks } from '../network/useLinks.network';
-import { LoadingPage } from './Loading.page';
-import { ErrorPage } from './Error.page';
 import { CardBody, Wrap } from '@chakra-ui/react';
+
 import { DashboardTile } from '../components/DashboardTile';
 import { EmptyListPlaceholder } from '../components/EmptyListPlaceholder';
+import { Page } from '../layout/Page';
+import { useLinks } from '../network/useLinks.network';
+import { l } from '../utils/language';
+import { ErrorPage } from './Error.page';
+import { LoadingPage } from './Loading.page';
 
 export function DashboardPage() {
   const { isLoading, data, isError } = useLinks();

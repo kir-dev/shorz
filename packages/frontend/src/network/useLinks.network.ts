@@ -1,10 +1,12 @@
-import { useNetworkQuery } from '../utils/useNetwork';
 import axios from 'axios';
+import { useQuery } from 'react-query';
+
 import { ApiPaths } from '../config/paths.config';
 import { LinkDocument } from '../types/types';
 
 export function useLinks() {
-  return useNetworkQuery(() => {
-    return axios.get<LinkDocument[]>(ApiPaths.LINK);
+  return useQuery('links', async () => {
+    const response = await axios.get<LinkDocument[]>(ApiPaths.LINK);
+    return response.data;
   });
 }

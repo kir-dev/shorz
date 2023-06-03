@@ -9,6 +9,7 @@ import { UsersModule } from './users/users.module';
 import configuration, { ConfigKeys } from './utils/configuration';
 import { LinksModule } from './links/links.module';
 import { RedirectModule } from './redirect/redirect.module';
+import { QrcodeModule } from './qrcode/qrcode.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { RedirectModule } from './redirect/redirect.module';
     UsersModule,
     LinksModule,
     RedirectModule,
+    QrcodeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

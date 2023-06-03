@@ -1,5 +1,3 @@
-import { Page } from '../layout/Page';
-import { l } from '../utils/language';
 import {
   Button,
   ButtonGroup,
@@ -11,27 +9,36 @@ import {
   Input,
   VStack,
 } from '@chakra-ui/react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+
 import { NavButton } from '../components/NavButton';
 import { UIPaths } from '../config/paths.config';
+import { useAuthContext } from '../context/auth.context';
+import { Page } from '../layout/Page';
 import { useCreateLink } from '../network/useCreateLink.network';
-import { useForm } from 'react-hook-form';
 import { CreateLinkDto } from '../types/dto.types';
-import { useNavigate } from 'react-router-dom';
+import { l } from '../utils/language';
 import { joinPath } from '../utils/path';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { linkValidation } from '../utils/validation';
 
 export function CreateLinkPage() {
   const navigate = useNavigate();
-  const { isLoading, makeRequest } = useCreateLink();
+  const { user } = useAuthContext();
+  const { isLoading, mutate } = useCreateLink((responseData) => {
+    navigate(joinPath(UIPaths.LINK, responseData._id));
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<CreateLinkDto>({ resolver: yupResolver(linkValidation) });
   const onSubmit = (values: CreateLinkDto) => {
-    makeRequest(values, (responseData) => {
-      navigate(joinPath(UIPaths.LINK, responseData._id));
+    mutate({
+      url: values.url,
+      name: values.name,
+      shortId: user?.isAdmin && values.shortId ? values.shortId : undefined,
     });
   };
   return (
@@ -49,6 +56,13 @@ export function CreateLinkPage() {
               <Input {...register('url')} />
               {!!errors.url && <FormErrorMessage>{errors.url.message}</FormErrorMessage>}
             </FormControl>
+            {user?.isAdmin && (
+              <FormControl isInvalid={!!errors.shortId}>
+                <FormLabel>{l('form.link.label.shortId')}</FormLabel>
+                <Input {...register('shortId')} />
+                {!!errors.shortId && <FormErrorMessage>{errors.shortId.message}</FormErrorMessage>}
+              </FormControl>
+            )}
           </VStack>
         </CardBody>
         <CardFooter>

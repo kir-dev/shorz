@@ -1,8 +1,9 @@
-import { Page } from '../layout/Page';
-import { TbAlertTriangle } from 'react-icons/tb';
 import { Box, Button, CardBody, CardFooter, Heading, Text, VStack } from '@chakra-ui/react';
-import { l } from '../utils/language';
+import { TbAlertTriangle } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
+
+import { Page } from '../layout/Page';
+import { l } from '../utils/language';
 
 interface ErrorPageProps {
   message?: string;

@@ -1,5 +1,3 @@
-import { Page } from '../layout/Page';
-import { l } from '../utils/language';
 import {
   Button,
   ButtonGroup,
@@ -11,25 +9,28 @@ import {
   Input,
   VStack,
 } from '@chakra-ui/react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import { NavButton } from '../components/NavButton';
 import { UIPaths } from '../config/paths.config';
-import { useForm } from 'react-hook-form';
-import { PatchLinkDto } from '../types/dto.types';
-import { useNavigate, useParams } from 'react-router-dom';
-import { joinPath } from '../utils/path';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { linkValidation } from '../utils/validation';
-import { usePatchLink } from '../network/usePatchLink.network';
+import { Page } from '../layout/Page';
 import { useLink } from '../network/useLink.network';
-import { LoadingPage } from './Loading.page';
+import { usePatchLink } from '../network/usePatchLink.network';
+import { PatchLinkDto } from '../types/dto.types';
+import { l } from '../utils/language';
+import { joinPath } from '../utils/path';
+import { linkValidation } from '../utils/validation';
 import { ErrorPage } from './Error.page';
-import { useEffect } from 'react';
+import { LoadingPage } from './Loading.page';
 
 export function EditLinkPage() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { isLoading, makeRequest } = usePatchLink(id || '');
-  const { isLoading: isLinkLoading, data, isError } = useLink(id || '');
+  const { isLoading, mutate } = usePatchLink(id, () => navigate(joinPath(UIPaths.LINK, id ?? '')));
+  const { isLoading: isLinkLoading, data, isError } = useLink(id);
   const {
     register,
     handleSubmit,
@@ -42,9 +43,7 @@ export function EditLinkPage() {
   if (isLinkLoading) return <LoadingPage />;
   if (!data || isError) return <ErrorPage />;
   const onSubmit = (values: PatchLinkDto) => {
-    makeRequest(values, () => {
-      navigate(joinPath(UIPaths.LINK, id || ''));
-    });
+    mutate(values);
   };
   return (
     <Page title={l('title.editLink')}>

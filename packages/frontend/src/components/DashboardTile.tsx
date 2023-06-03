@@ -1,9 +1,10 @@
 import { Stat, StatHelpText, StatLabel, StatNumber, useColorModeValue, WrapItem } from '@chakra-ui/react';
-import { LinkDocument } from '../types/types';
 import { useNavigate } from 'react-router-dom';
-import { joinPath } from '../utils/path';
+
 import { UIPaths } from '../config/paths.config';
+import { LinkDocument } from '../types/types';
 import { l } from '../utils/language';
+import { joinPath } from '../utils/path';
 
 interface DashboardTileProps {
   link: LinkDocument;

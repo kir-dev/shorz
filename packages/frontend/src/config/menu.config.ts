@@ -1,12 +1,14 @@
-import { RouterItem } from '../types/types';
-import { UIPaths } from './paths.config';
-import { TbLink, TbListDetails } from 'react-icons/tb';
-import { DashboardPage } from '../pages/Dashboard.page';
-import { l } from '../utils/language';
-import { LinksPage } from '../pages/Links.page';
+import { TbLink, TbListDetails, TbUser } from 'react-icons/tb';
+
 import { CreateLinkPage } from '../pages/CreateLink.page';
-import { LinkDetailsPage } from '../pages/LinkDetails.page';
+import { DashboardPage } from '../pages/Dashboard.page';
 import { EditLinkPage } from '../pages/EditLink.page';
+import { LinkDetailsPage } from '../pages/LinkDetails.page';
+import { LinksPage } from '../pages/Links.page';
+import { UsersPage } from '../pages/Users.page';
+import { RouterItem } from '../types/types';
+import { l } from '../utils/language';
+import { UIPaths } from './paths.config';
 
 export const MenuItems: RouterItem[] = [
   {
@@ -32,5 +34,12 @@ export const MenuItems: RouterItem[] = [
   {
     path: UIPaths.EDIT_LINK,
     page: EditLinkPage,
+  },
+  {
+    name: l('title.users'),
+    icon: TbUser({}),
+    path: UIPaths.USERS,
+    page: UsersPage,
+    admin: true,
   },
 ];

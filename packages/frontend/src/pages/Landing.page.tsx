@@ -1,9 +1,10 @@
 import { Box, CardBody, Grid, Text, VStack } from '@chakra-ui/react';
+
 import { Illustration } from '../components/Illustration';
 import { NavButton } from '../components/NavButton';
 import { UIPaths } from '../config/paths.config';
-import { l } from '../utils/language';
 import { Page } from '../layout/Page';
+import { l } from '../utils/language';
 
 export function LandingPage() {
   return (
