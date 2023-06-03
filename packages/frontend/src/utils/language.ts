@@ -12,6 +12,7 @@ const languageData = {
   'title.editLink': 'Link szerkesztése',
   'title.login': 'Bejelentkezés',
   'title.dashboard': 'Dashboard',
+  'title.users': 'Felhasználók',
   'error.wrongCredentials': 'Hibás bejelentkezési adatok',
   'error.unauthorized': 'Nem vagy bejelentkezve',
   'error.forbidden': 'Nincs jogosultságod',

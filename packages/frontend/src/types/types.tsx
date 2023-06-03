@@ -9,14 +9,6 @@ type Document<T> = {
 export type UserDocument = Document<User>;
 export type LinkDocument = Document<Link>;
 
-export const DummyLink: LinkDocument = {
-  _id: '',
-  name: '',
-  shortId: '',
-  url: '',
-  timestamps: [],
-};
-
 export type User = {
   displayName: string;
   mail: string;

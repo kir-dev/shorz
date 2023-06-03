@@ -35,6 +35,12 @@ const theme = extendTheme({
         colorScheme: 'brand',
       },
     },
+    Switch: {
+      defaultProps: {
+        variant: 'solid',
+        colorScheme: 'brand',
+      },
+    },
     VStack: {
       defaultProps: {
         alignItems: 'flex-start',
