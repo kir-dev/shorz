@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { RoleBasedAuthGuard } from '../auth/role.guard';
 import { LinksService } from './links.service';
 import { UserDocument } from '../schemas/users.schema';
@@ -28,6 +39,7 @@ export class LinksController {
   @Post()
   async createLink(@Body() createLinkDto: CreateLinkDto, @Request() req) {
     const user = req.user as UserDocument;
+    if (!user.isAdmin && createLinkDto.shortId) return new BadRequestException();
     const link = await this.linksService.createLink(createLinkDto);
     await this.usersService.addLink(user._id, link._id);
     return link;

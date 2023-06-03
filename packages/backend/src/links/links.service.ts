@@ -42,7 +42,11 @@ export class LinksService {
   }
 
   async createLink(createLinkDto: CreateLinkDto) {
-    return await this.linkModel.create({ ...createLinkDto, timestamps: [], shortId: generateRandomString() });
+    return await this.linkModel.create({
+      ...createLinkDto,
+      timestamps: [],
+      shortId: createLinkDto.shortId || generateRandomString(),
+    });
   }
 
   async patchLink(linkId: Types.ObjectId, { name, url }: PatchLinkDto) {

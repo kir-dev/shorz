@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { NavButton } from '../components/NavButton';
 import { UIPaths } from '../config/paths.config';
+import { useAuthContext } from '../context/auth.context';
 import { Page } from '../layout/Page';
 import { useCreateLink } from '../network/useCreateLink.network';
 import { CreateLinkDto } from '../types/dto.types';
@@ -24,6 +25,7 @@ import { linkValidation } from '../utils/validation';
 
 export function CreateLinkPage() {
   const navigate = useNavigate();
+  const { user } = useAuthContext();
   const { isLoading, makeRequest } = useCreateLink();
   const {
     register,
@@ -31,9 +33,12 @@ export function CreateLinkPage() {
     formState: { errors },
   } = useForm<CreateLinkDto>({ resolver: yupResolver(linkValidation) });
   const onSubmit = (values: CreateLinkDto) => {
-    makeRequest(values, (responseData) => {
-      navigate(joinPath(UIPaths.LINK, responseData._id));
-    });
+    makeRequest(
+      { url: values.url, name: values.name, shortId: user?.isAdmin && values.shortId ? values.shortId : undefined },
+      (responseData) => {
+        navigate(joinPath(UIPaths.LINK, responseData._id));
+      }
+    );
   };
   return (
     <Page title={l('title.createLink')}>
@@ -50,6 +55,13 @@ export function CreateLinkPage() {
               <Input {...register('url')} />
               {!!errors.url && <FormErrorMessage>{errors.url.message}</FormErrorMessage>}
             </FormControl>
+            {user?.isAdmin && (
+              <FormControl isInvalid={!!errors.shortId}>
+                <FormLabel>{l('form.link.label.shortId')}</FormLabel>
+                <Input {...register('shortId')} />
+                {!!errors.shortId && <FormErrorMessage>{errors.shortId.message}</FormErrorMessage>}
+              </FormControl>
+            )}
           </VStack>
         </CardBody>
         <CardFooter>
