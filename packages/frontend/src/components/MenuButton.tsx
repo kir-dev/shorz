@@ -1,5 +1,6 @@
-import { NavButton, NavButtonProps } from './NavButton';
 import { useLocation } from 'react-router-dom';
+
+import { NavButton, NavButtonProps } from './NavButton';
 
 interface MenuButtonProps extends NavButtonProps {
   to: string;

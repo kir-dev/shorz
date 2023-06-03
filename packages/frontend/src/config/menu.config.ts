@@ -1,12 +1,13 @@
-import { RouterItem } from '../types/types';
-import { UIPaths } from './paths.config';
 import { TbLink, TbListDetails } from 'react-icons/tb';
-import { DashboardPage } from '../pages/Dashboard.page';
-import { l } from '../utils/language';
-import { LinksPage } from '../pages/Links.page';
+
 import { CreateLinkPage } from '../pages/CreateLink.page';
-import { LinkDetailsPage } from '../pages/LinkDetails.page';
+import { DashboardPage } from '../pages/Dashboard.page';
 import { EditLinkPage } from '../pages/EditLink.page';
+import { LinkDetailsPage } from '../pages/LinkDetails.page';
+import { LinksPage } from '../pages/Links.page';
+import { RouterItem } from '../types/types';
+import { l } from '../utils/language';
+import { UIPaths } from './paths.config';
 
 export const MenuItems: RouterItem[] = [
   {

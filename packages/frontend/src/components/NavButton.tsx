@@ -1,6 +1,6 @@
 import { Button, ButtonProps } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
 import { TbExternalLink } from 'react-icons/tb';
+import { useNavigate } from 'react-router-dom';
 
 export interface NavButtonProps extends ButtonProps {
   to: string | number;

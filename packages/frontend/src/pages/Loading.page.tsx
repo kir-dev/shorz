@@ -1,7 +1,8 @@
-import { l } from '../utils/language';
 import { CardBody, Center, useDisclosure, useTimeout } from '@chakra-ui/react';
+
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { Page } from '../layout/Page';
+import { l } from '../utils/language';
 
 export function LoadingPage() {
   const { onOpen, isOpen } = useDisclosure();

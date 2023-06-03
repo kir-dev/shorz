@@ -1,8 +1,9 @@
-import { LinkDocument } from '../types/types';
 import { HStack, Text, useColorModeValue } from '@chakra-ui/react';
 import { TbChevronRight } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
+
 import { UIPaths } from '../config/paths.config';
+import { LinkDocument } from '../types/types';
 import { joinPath } from '../utils/path';
 
 interface LinkListItemProps {

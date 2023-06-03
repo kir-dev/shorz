@@ -1,3 +1,4 @@
+name: shorz
 services:
   backend:
     build: .

@@ -1,6 +1,7 @@
-import { useAuthContext } from '../context/auth.context';
 import { useMemo } from 'react';
+
 import { MenuItems } from '../config/menu.config';
+import { useAuthContext } from '../context/auth.context';
 
 export function useRouteItems() {
   const { user } = useAuthContext();

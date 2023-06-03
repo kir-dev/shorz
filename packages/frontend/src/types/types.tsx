@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+
 import { UIPaths } from '../config/paths.config';
 
 type Document<T> = {

@@ -31,6 +31,8 @@
     "@nestjs/platform-express": "^9.0.0",
     "@types/passport": "^1.0.11",
     "@types/passport-oauth2": "^1.4.11",
+    "@types/qrcode": "^1.5.0",
+    "@types/qrcode-svg": "^1.1.1",
     "axios": "^1.2.2",
     "bcrypt": "^5.1.0",
     "mongoose": "^6.8.0",
@@ -38,6 +40,8 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "passport-oauth2": "^1.6.1",
+    "qrcode": "^1.5.3",
+    "qrcode-svg": "^1.1.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"

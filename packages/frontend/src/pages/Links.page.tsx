@@ -1,13 +1,14 @@
-import { Page } from '../layout/Page';
-import { l } from '../utils/language';
-import { useLinks } from '../network/useLinks.network';
 import { ButtonGroup, CardBody, CardFooter, VStack } from '@chakra-ui/react';
+
+import { EmptyListPlaceholder } from '../components/EmptyListPlaceholder';
 import { LinkListItem } from '../components/LinkListItem';
 import { NavButton } from '../components/NavButton';
 import { UIPaths } from '../config/paths.config';
-import { EmptyListPlaceholder } from '../components/EmptyListPlaceholder';
-import { LoadingPage } from './Loading.page';
+import { Page } from '../layout/Page';
+import { useLinks } from '../network/useLinks.network';
+import { l } from '../utils/language';
 import { ErrorPage } from './Error.page';
+import { LoadingPage } from './Loading.page';
 
 export function LinksPage() {
   const { isLoading, data, isError } = useLinks();

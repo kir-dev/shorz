@@ -1,7 +1,8 @@
 import { Button, HStack, useToast } from '@chakra-ui/react';
 import { TbCopy } from 'react-icons/tb';
-import { NavButton } from './NavButton';
+
 import { l } from '../utils/language';
+import { NavButton } from './NavButton';
 
 interface UrlFieldProps {
   url: string;

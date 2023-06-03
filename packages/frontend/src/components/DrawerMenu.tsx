@@ -7,8 +7,9 @@ import {
   DrawerOverlay,
   useDisclosure,
 } from '@chakra-ui/react';
-import { NavBar } from './NavBar';
 import { TbMenu } from 'react-icons/tb';
+
+import { NavBar } from './NavBar';
 
 export function DrawerMenu() {
   const { onOpen, isOpen, onClose } = useDisclosure();

@@ -1,9 +1,10 @@
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { AdminLayout } from '../layout/AdminLayout';
-import { useRouteItems } from '../utils/useRouteItems';
-import { NotFoundPage } from '../pages/NotFound.page';
+
 import { UIPaths } from '../config/paths.config';
+import { AdminLayout } from '../layout/AdminLayout';
+import { NotFoundPage } from '../pages/NotFound.page';
 import { l } from '../utils/language';
+import { useRouteItems } from '../utils/useRouteItems';
 
 export function AdminNavigator() {
   const routeItems = useRouteItems();
