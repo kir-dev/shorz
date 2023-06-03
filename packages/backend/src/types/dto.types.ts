@@ -1,5 +1,33 @@
-import { Link } from '../schemas/link.schema';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
 
-export type CreateLinkDto = Omit<Link, 'timestamps' | 'shortId'> & { shortId?: Link['shortId'] };
-export type PatchLinkDto = Partial<Omit<Link, 'timestamps' | 'shortId'>>;
-export type SetAdminDto = { isAdmin: boolean };
+export class CreateLinkDto {
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsUrl()
+  url: string;
+
+  @IsString()
+  @IsOptional()
+  shortId: string | undefined;
+}
+
+export class PatchLinkDto {
+  @IsString()
+  @IsOptional()
+  name: string;
+
+  @IsString()
+  @IsOptional()
+  @IsUrl()
+  url: string;
+}
+
+export class SetAdminDto {
+  @IsBoolean()
+  @IsNotEmpty()
+  isAdmin: boolean;
+}
