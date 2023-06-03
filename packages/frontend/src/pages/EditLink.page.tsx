@@ -29,8 +29,8 @@ import { LoadingPage } from './Loading.page';
 export function EditLinkPage() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { isLoading, makeRequest } = usePatchLink(id || '');
-  const { isLoading: isLinkLoading, data, isError } = useLink(id || '');
+  const { isLoading, mutate } = usePatchLink(id, () => navigate(joinPath(UIPaths.LINK, id ?? '')));
+  const { isLoading: isLinkLoading, data, isError } = useLink(id);
   const {
     register,
     handleSubmit,
@@ -43,9 +43,7 @@ export function EditLinkPage() {
   if (isLinkLoading) return <LoadingPage />;
   if (!data || isError) return <ErrorPage />;
   const onSubmit = (values: PatchLinkDto) => {
-    makeRequest(values, () => {
-      navigate(joinPath(UIPaths.LINK, id || ''));
-    });
+    mutate(values);
   };
   return (
     <Page title={l('title.editLink')}>

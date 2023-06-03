@@ -26,19 +26,20 @@ import { linkValidation } from '../utils/validation';
 export function CreateLinkPage() {
   const navigate = useNavigate();
   const { user } = useAuthContext();
-  const { isLoading, makeRequest } = useCreateLink();
+  const { isLoading, mutate } = useCreateLink((responseData) => {
+    navigate(joinPath(UIPaths.LINK, responseData._id));
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<CreateLinkDto>({ resolver: yupResolver(linkValidation) });
   const onSubmit = (values: CreateLinkDto) => {
-    makeRequest(
-      { url: values.url, name: values.name, shortId: user?.isAdmin && values.shortId ? values.shortId : undefined },
-      (responseData) => {
-        navigate(joinPath(UIPaths.LINK, responseData._id));
-      }
-    );
+    mutate({
+      url: values.url,
+      name: values.name,
+      shortId: user?.isAdmin && values.shortId ? values.shortId : undefined,
+    });
   };
   return (
     <Page title={l('title.createLink')}>

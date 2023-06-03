@@ -45,7 +45,11 @@ export function LinkDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { isLoading, data, isError } = useLink(id || '');
-  const { isLoading: isDeleteLoading, isError: isDeleteError, makeRequest } = useDeleteLink(id || '');
+  const {
+    isLoading: isDeleteLoading,
+    isError: isDeleteError,
+    mutate,
+  } = useDeleteLink(id, () => navigate(UIPaths.LINK));
   const qrUrl = useMemo(() => {
     if (!SHORTENED_BASE_URL || !data) return;
     return getQrcodeUrl(joinPath(SHORTENED_BASE_URL, data.shortId));
@@ -53,7 +57,7 @@ export function LinkDetailsPage() {
   if (isLoading) return <LoadingPage />;
   if (!data || !id || isError || isDeleteError) return <ErrorPage />;
   const onDelete = () => {
-    makeRequest(undefined, () => navigate(UIPaths.LINK));
+    mutate(undefined);
   };
   return (
     <Page title={data.name || l('title.unknown')} isLoading={isLoading}>
