@@ -1,11 +1,15 @@
-import { TbLink, TbListDetails, TbUser } from 'react-icons/tb';
+import { TbCheckupList, TbLink, TbListDetails, TbUser } from 'react-icons/tb';
 
-import { CreateLinkPage } from '../pages/CreateLink.page';
-import { DashboardPage } from '../pages/Dashboard.page';
-import { EditLinkPage } from '../pages/EditLink.page';
-import { LinkDetailsPage } from '../pages/LinkDetails.page';
-import { LinksPage } from '../pages/Links.page';
-import { UsersPage } from '../pages/Users.page';
+import { CreateLinkPage } from '../pages/link/CreateLink.page';
+import { EditLinkPage } from '../pages/link/EditLink.page';
+import { LinkDetailsPage } from '../pages/link/LinkDetails.page';
+import { LinksPage } from '../pages/link/Links.page';
+import { DashboardPage } from '../pages/other/Dashboard.page';
+import { CreatePollPage } from '../pages/poll/CreatePoll.page';
+import { EditPollPage } from '../pages/poll/EditPoll.page';
+import { PollDetailsPage } from '../pages/poll/PollDetails.page';
+import { PollsPage } from '../pages/poll/Polls.page';
+import { UsersPage } from '../pages/user/Users.page';
 import { RouterItem } from '../types/types';
 import { l } from '../utils/language';
 import { UIPaths } from './paths.config';
@@ -35,6 +39,15 @@ export const MenuItems: RouterItem[] = [
     path: UIPaths.EDIT_LINK,
     page: EditLinkPage,
   },
+  {
+    name: l('title.polls'),
+    path: UIPaths.POLL,
+    page: PollsPage,
+    icon: TbCheckupList({}),
+  },
+  { path: UIPaths.NEW_POLL, page: CreatePollPage },
+  { path: UIPaths.POLL_DETAILS, page: PollDetailsPage },
+  { path: UIPaths.EDIT_POLL, page: EditPollPage },
   {
     name: l('title.users'),
     icon: TbUser({}),
