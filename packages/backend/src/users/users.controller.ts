@@ -4,7 +4,7 @@ import { AdminGuard } from '../auth/admin.guard';
 import { sanitize } from '../utils/sanitize';
 import { User } from '../schemas/users.schema';
 import { JwtAuthGuard } from '../strategies/jwt.strategy';
-import { SetAdminDto } from '../types/dto.types';
+import { SetAdminDto } from '../types/user.dto';
 
 @Controller('admin/users')
 export class UsersController {

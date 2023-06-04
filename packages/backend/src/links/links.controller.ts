@@ -14,7 +14,7 @@ import { RoleBasedAuthGuard } from '../auth/role.guard';
 import { LinksService } from './links.service';
 import { UserDocument } from '../schemas/users.schema';
 import { Types } from 'mongoose';
-import { CreateLinkDto, PatchLinkDto } from '../types/dto.types';
+import { CreateLinkDto, PatchLinkDto } from '../types/link.dto';
 import { UsersService } from '../users/users.service';
 import { JwtAuthGuard } from '../strategies/jwt.strategy';
 

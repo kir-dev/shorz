@@ -1,7 +1,7 @@
 import { Grid } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 
-import { DesktopNavbar } from '../components/DesktopNavbar';
+import { DesktopNavbar } from '../components/layout/DesktopNavbar';
 import { MainLayout } from './MainLayout';
 
 export function AdminLayout({ children }: PropsWithChildren) {

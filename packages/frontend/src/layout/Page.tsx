@@ -3,8 +3,8 @@ import { css } from '@emotion/react';
 import { Helmet } from 'react-helmet-async';
 import { TbPencil } from 'react-icons/tb';
 
-import { CustomCard } from '../components/CustomCard';
-import { InlineLoadingSpinner } from '../components/LoadingSpinner';
+import { CustomCard } from '../components/common/CustomCard';
+import { InlineLoadingSpinner } from '../components/feedback/LoadingSpinner';
 
 interface PageProps extends ContainerProps {
   title: string;

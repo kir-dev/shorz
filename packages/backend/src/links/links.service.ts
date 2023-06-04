@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../schemas/users.schema';
 import { Model, Types } from 'mongoose';
 import { Link, LinkDocument } from '../schemas/link.schema';
-import { CreateLinkDto, PatchLinkDto } from '../types/dto.types';
+import { CreateLinkDto, PatchLinkDto } from '../types/link.dto';
 import generateRandomString from '../utils/randomString';
 
 @Injectable()
