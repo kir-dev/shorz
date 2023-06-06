@@ -70,6 +70,7 @@ const languageData = {
   'page.pollDetails.question': 'Kérdés',
   'page.pollDetails.link': 'Link a szavazáshoz',
   'page.pollDetails.empty': 'Nem érkezett szavazat',
+  'page.pollDetails.mostVote': 'Legtöbb "Igen" szavazat erre volt:',
   'page.dashboard.tileHelpText': 'Átirányítás',
   'page.landing.button': 'Vágjunk bele!',
   'page.landing.title': 'Link rövidítés egyszerűen',
