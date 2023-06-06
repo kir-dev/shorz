@@ -1,4 +1,4 @@
-import { Button, HStack, useToast } from '@chakra-ui/react';
+import { Box, Button, useToast } from '@chakra-ui/react';
 import { TbCopy } from 'react-icons/tb';
 
 import { l } from '../../utils/language';
@@ -17,13 +17,13 @@ export function UrlField({ url }: UrlFieldProps) {
       .catch(() => toast({ status: 'error', title: l('page.linkDetails.copyFail') }));
   };
   return (
-    <HStack>
+    <Box display='inline-flex'>
       <NavButton colorScheme='black' to={url} external variant='link'>
         {url}
       </NavButton>
       <Button variant='ghost' onClick={copy}>
         <TbCopy />
       </Button>
-    </HStack>
+    </Box>
   );
 }

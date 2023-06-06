@@ -14,11 +14,15 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { TbQuestionCircle } from 'react-icons/tb';
+import { TbLink, TbQuestionCircle } from 'react-icons/tb';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { NavButton } from '../../components/button/NavButton';
 import { IconLabel } from '../../components/common/IconLabel';
+import { UrlField } from '../../components/common/UrlField';
+import { EmptyListPlaceholder } from '../../components/feedback/EmptyListPlaceholder';
+import { SubmissionList } from '../../components/poll/SubmissionList';
+import { CLIENT_BASE_URL } from '../../config/environment.config';
 import { UIPaths } from '../../config/paths.config';
 import { Page } from '../../layout/Page';
 import { useDeletePoll } from '../../network/poll/useDeletePoll.network';
@@ -40,16 +44,27 @@ export function PollDetailsPage() {
   if (isLoading) return <LoadingPage />;
   if (!data || !id || isError || isDeleteError) return <ErrorPage />;
   const onDelete = () => {
-    mutate(undefined);
+    mutate();
   };
   return (
-    <Page title={data.name || l('title.unknown')} isLoading={isLoading}>
+    <Page overflow='hidden' title={data.name || l('title.unknown')} isLoading={isLoading}>
       <CardBody>
         <VStack w='100%' align='flex-start' spacing={5}>
           <Box>
             <IconLabel text={l('page.pollDetails.question')} icon={<TbQuestionCircle />} />
             <Text>{data.question}</Text>
           </Box>
+          <Box maxW='100%'>
+            <IconLabel text={l('page.pollDetails.question')} icon={<TbLink />} />
+            <Box maxW='100%' overflowY='auto'>
+              <UrlField url={joinPath(CLIENT_BASE_URL, 'p', data._id)} />
+            </Box>
+          </Box>
+          {data.submissions.length > 0 ? (
+            <SubmissionList answerOptions={data.answerOptions} submissions={data.submissions} />
+          ) : (
+            <EmptyListPlaceholder text={l('page.pollDetails.empty')} hideArrow />
+          )}
         </VStack>
       </CardBody>
       <CardFooter>

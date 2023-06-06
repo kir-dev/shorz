@@ -28,7 +28,7 @@ import { pollValidation } from '../../utils/validation';
 export function CreatePollPage() {
   const navigate = useNavigate();
   const { isLoading, mutate } = useCreatePoll((responseData) => {
-    navigate(joinPath(UIPaths.LINK, responseData._id));
+    navigate(joinPath(UIPaths.POLL, responseData._id));
   });
   const form = useForm<CreatePollDto>({
     resolver: yupResolver(pollValidation),

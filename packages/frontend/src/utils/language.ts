@@ -68,6 +68,8 @@ const languageData = {
   'page.linkDetails.qrCode.open': 'Megnyitás',
   'page.linkDetails.qrCode.download': 'Letöltés',
   'page.pollDetails.question': 'Kérdés',
+  'page.pollDetails.link': 'Link a szavazáshoz',
+  'page.pollDetails.empty': 'Nem érkezett szavazat',
   'page.dashboard.tileHelpText': 'Átirányítás',
   'page.landing.button': 'Vágjunk bele!',
   'page.landing.title': 'Link rövidítés egyszerűen',
