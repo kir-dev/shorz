@@ -44,7 +44,7 @@ export class PollController {
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  async patchLink(@Param('id') id: string, @Body() dto: PatchPollDto, @Request() req) {
+  async patchPoll(@Param('id') id: string, @Body() dto: PatchPollDto, @Request() req) {
     const user = req.user as UserDocument;
     if (!(await this.pollService.validateOwnership(user._id, getObjectId(id)))) return new ForbiddenException();
     return this.pollService.updatePoll(getObjectId(id), dto);
@@ -52,7 +52,7 @@ export class PollController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async deleteLink(@Param('id') id: string, @Request() req) {
+  async deletePoll(@Param('id') id: string, @Request() req) {
     const user = req.user as UserDocument;
     if (!(await this.pollService.validateOwnership(user._id, getObjectId(id)))) return new ForbiddenException();
     return await this.pollService.deletePoll(getObjectId(id));

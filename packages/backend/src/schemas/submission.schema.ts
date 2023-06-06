@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Type } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 import { IsArray, IsEnum, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 import { HydratedDocument, Types } from 'mongoose';
 import { LinkSchema } from './link.schema';
@@ -16,9 +16,11 @@ enum PollAnswerValue {
 export class PollAnswer {
   @IsString()
   @IsNotEmpty()
+  @Expose()
   key: string;
 
   @IsEnum(PollAnswerValue)
+  @Expose()
   value: PollAnswerValue;
 }
 
