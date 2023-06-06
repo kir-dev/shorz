@@ -2,7 +2,7 @@ import { Controller, Get, ParseIntPipe, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { QrcodeService } from './qrcode.service';
 
-@Controller('admin/qrcode')
+@Controller('qrcode')
 export class QrcodeController {
   constructor(private readonly qrcodeService: QrcodeService) {}
 
