@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertIcon,
   Button,
   ButtonGroup,
   CardBody,
@@ -84,6 +86,14 @@ export function EditPollPage() {
               </FormControl>
               <FormControl isInvalid={!!errors.answerOptions}>
                 <FormLabel>{l('form.poll.label.answerOptions')}</FormLabel>
+                <Alert status='warning' my={5}>
+                  <AlertIcon />
+                  {l('form.poll.warning.answerOptions')}
+                </Alert>
+                <Alert status='info' my={5}>
+                  <AlertIcon />
+                  {l('form.poll.tip.answerOptions')}
+                </Alert>
                 <AnswerOptionsField />
               </FormControl>
             </VStack>

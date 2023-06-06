@@ -47,6 +47,11 @@ const languageData = {
   'form.poll.label.type': 'Szavazás típusa',
   'form.poll.label.question': 'Kérdés / felszólítás',
   'form.poll.label.answerOptions': 'Válaszlehetőségek',
+  'form.poll.warning.answerOptions':
+    'Az kitöltésekben található válaszok a szöveg alapján vannak elmentve és hivatkozva. Amennyiben módosítod egy lehetőség szövegét, úgy egyes válaszok nem kerülnek megjelenítésre (de továbbra is megmaradnak)!',
+  'form.poll.tip.answerOptions':
+    'Beérkezett kitöltések után a kérdések szerkesztését nem javasoljuk, a kérdés felvételét, törlését és sorrendmódosítást ajánljuk!',
+
   'navbar.section.user': 'Felhasználó',
   'navbar.section.things': 'Dolgaim',
   'navbar.unknown': 'Ismeretlen',
