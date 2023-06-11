@@ -5,7 +5,7 @@ import { ApiPaths } from '../../config/paths.config';
 import { CreateLinkDto } from '../../types/dto.types';
 import { LinkDocument } from '../../types/types';
 
-export function useCreateLink(onSuccess: (response: LinkDocument) => void) {
+export function useCreateLink(onSuccess?: (response: LinkDocument) => void) {
   return useMutation(
     'createLink',
     async (body: CreateLinkDto) => {

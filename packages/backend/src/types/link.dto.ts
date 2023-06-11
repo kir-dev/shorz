@@ -9,7 +9,7 @@ export class CreateLinkDto {
 
   @IsString()
   @IsNotEmpty()
-  @IsUrl()
+  @IsUrl({ host_whitelist: ['localhost'] })
   @Expose()
   url: string;
 

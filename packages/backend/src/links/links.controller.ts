@@ -59,4 +59,10 @@ export class LinksController {
   async patchLink(@Param('id') id: string, @Body() patchLinkDto: PatchLinkDto) {
     return await this.linksService.patchLink(new Types.ObjectId(id), patchLinkDto);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('url/:url')
+  async getLinkByUrl(@Param('url') url: string) {
+    return await this.linksService.getLinkByUrl(url);
+  }
 }

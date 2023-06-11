@@ -37,6 +37,12 @@ export class LinksService {
     return link;
   }
 
+  async getLinkByUrl(url: string): Promise<LinkDocument | undefined> {
+    const link = await this.linkModel.findOne({ url });
+    if (!link) return null;
+    return link;
+  }
+
   async deleteLink(linkId: Types.ObjectId) {
     return this.linkModel.deleteOne({ _id: linkId });
   }

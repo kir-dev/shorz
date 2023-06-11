@@ -26,4 +26,5 @@ export enum ApiPaths {
   SET_ROLE = '/admin/users/role',
   LOGIN = '/admin/auth/login',
   LINK = '/admin/link',
+  LINK_BY_URL = '/admin/link/url',
 }
