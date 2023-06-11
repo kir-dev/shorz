@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
-import { LoadingPlaceholder } from '../components/LoadingPlaceholder';
+import { LoadingPlaceholder } from '../components/feedback/LoadingPlaceholder';
 import { ApiPaths, UIPaths } from '../config/paths.config';
 import { User } from '../types/types';
 

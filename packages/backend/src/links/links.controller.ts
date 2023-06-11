@@ -14,7 +14,7 @@ import { RoleBasedAuthGuard } from '../auth/role.guard';
 import { LinksService } from './links.service';
 import { UserDocument } from '../schemas/users.schema';
 import { Types } from 'mongoose';
-import { CreateLinkDto, PatchLinkDto } from '../types/dto.types';
+import { CreateLinkDto, PatchLinkDto } from '../types/link.dto';
 import { UsersService } from '../users/users.service';
 import { JwtAuthGuard } from '../strategies/jwt.strategy';
 
@@ -58,5 +58,11 @@ export class LinksController {
   @Patch(':id')
   async patchLink(@Param('id') id: string, @Body() patchLinkDto: PatchLinkDto) {
     return await this.linksService.patchLink(new Types.ObjectId(id), patchLinkDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('url/:url')
+  async getLinkByUrl(@Param('url') url: string) {
+    return await this.linksService.getLinkByUrl(url);
   }
 }

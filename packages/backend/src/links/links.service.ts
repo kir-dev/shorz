@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../schemas/users.schema';
 import { Model, Types } from 'mongoose';
 import { Link, LinkDocument } from '../schemas/link.schema';
-import { CreateLinkDto, PatchLinkDto } from '../types/dto.types';
+import { CreateLinkDto, PatchLinkDto } from '../types/link.dto';
 import generateRandomString from '../utils/randomString';
 
 @Injectable()
@@ -34,6 +34,12 @@ export class LinksService {
         .exec()
         .catch(console.error);
     }
+    return link;
+  }
+
+  async getLinkByUrl(url: string): Promise<LinkDocument | undefined> {
+    const link = await this.linkModel.findOne({ url });
+    if (!link) return null;
     return link;
   }
 

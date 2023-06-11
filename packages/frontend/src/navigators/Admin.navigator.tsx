@@ -2,7 +2,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import { UIPaths } from '../config/paths.config';
 import { AdminLayout } from '../layout/AdminLayout';
-import { NotFoundPage } from '../pages/NotFound.page';
+import { NotFoundPage } from '../pages/utility/NotFound.page';
 import { l } from '../utils/language';
 import { useRouteItems } from '../utils/useRouteItems';
 

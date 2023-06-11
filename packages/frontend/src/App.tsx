@@ -4,7 +4,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
 
-import { ErrorBoundary } from './components/ErrorBoundary';
+import { ErrorBoundary } from './components/feedback/ErrorBoundary';
 import { initAxios, queryClient } from './config/api.config';
 import theme from './config/theme';
 import { AuthProvider } from './context/auth.context';

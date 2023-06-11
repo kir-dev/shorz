@@ -16,7 +16,7 @@ export class Link {
   shortId: string;
   @Prop()
   @IsString()
-  @IsUrl()
+  @IsUrl({ host_whitelist: ['localhost'] })
   @IsNotEmpty()
   url: string;
   @Prop()
