@@ -20,6 +20,7 @@ export enum PollType {
 
 export type Poll = {
   name: string;
+  enabled: boolean;
   question: string;
   type: PollType;
   answerOptions: string[];

@@ -47,6 +47,7 @@ const languageData = {
   'form.poll.label.type': 'Szavazás típusa',
   'form.poll.label.question': 'Kérdés / felszólítás',
   'form.poll.label.answerOptions': 'Válaszlehetőségek',
+  'form.poll.label.enabled': 'Kitöltés engedélyezve alapból',
   'form.poll.warning.answerOptions':
     'Az kitöltésekben található válaszok a szöveg alapján vannak elmentve és hivatkozva. Amennyiben módosítod egy lehetőség szövegét, úgy egyes válaszok nem kerülnek megjelenítésre (de továbbra is megmaradnak)!',
   'form.poll.tip.answerOptions':
@@ -73,6 +74,7 @@ const languageData = {
   'page.linkDetails.qrCode.open': 'Megnyitás',
   'page.linkDetails.qrCode.download': 'Letöltés',
   'page.pollDetails.question': 'Kérdés',
+  'page.pollDetails.enabled': 'Kitöltés engedélyezése',
   'page.pollDetails.link': 'Link a szavazáshoz',
   'page.pollDetails.empty': 'Nem érkezett szavazat',
   'page.pollDetails.mostVote': 'Legtöbb "Igen" szavazat erre volt:',
@@ -93,4 +95,5 @@ const languageData = {
     'A Shorz használatához csupán egy AuthSch fiókra van szükséged!',
   'page.pollSuccess.title': 'Szavazat beküldve',
   'page.pollSuccess.description': 'A szavazatod megkaptuk!',
+  'page.pollSuccess.disabled': 'A szavazás nincs engedélyezve!',
 };

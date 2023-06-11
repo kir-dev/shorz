@@ -1,4 +1,4 @@
-import { array, number, object, SchemaOf, string } from 'yup';
+import { array, boolean, number, object, SchemaOf, string } from 'yup';
 
 import { CreateLinkDto, CreatePollDto, CreateSubmissionDto } from '../types/dto.types';
 import { l } from './language';
@@ -13,6 +13,7 @@ export const linkValidation: SchemaOf<CreateLinkDto> = object({
 
 export const pollValidation: SchemaOf<CreatePollDto> = object({
   name: string().required(l('form.validation.required')),
+  enabled: boolean().required(l('form.validation.required')),
   question: string().required(l('form.validation.required')),
   type: number().required(l('form.validation.required')),
   answerOptions: array().min(1, l('form.validation.min')),

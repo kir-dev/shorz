@@ -25,6 +25,7 @@ import { l } from '../../utils/language';
 import { submissionValidation } from '../../utils/validation';
 import { ErrorPage } from '../utility/Error.page';
 import { LoadingPage } from '../utility/Loading.page';
+import { FillPollDisabledPage } from './FillPollDisabled.page';
 
 export function FillPollPage() {
   const { id } = useParams();
@@ -51,6 +52,9 @@ export function FillPollPage() {
   const onSubmit = (values: CreateSubmissionDto) => {
     mutate(values);
   };
+  if (!data.enabled) {
+    return <FillPollDisabledPage title={data.question} />;
+  }
   return (
     <Page title={data.question}>
       <FormProvider {...form}>

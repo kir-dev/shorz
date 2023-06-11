@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsEnum, IsString } from 'class-validator';
 import { HydratedDocument, Types } from 'mongoose';
 import { User } from './users.schema';
 
@@ -15,12 +15,14 @@ export enum PollType {
 export class Poll {
   @Prop({ required: true })
   @IsString()
-  @IsNotEmpty()
   name: string;
+
+  @Prop({ required: true, default: false })
+  @IsBoolean()
+  enabled: boolean;
 
   @Prop({ required: true })
   @IsString()
-  @IsNotEmpty()
   question: string;
 
   @Prop({ required: true })

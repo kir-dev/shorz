@@ -8,6 +8,7 @@ import {
   FormLabel,
   Input,
   Select,
+  Switch,
   VStack,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -32,7 +33,7 @@ export function CreatePollPage() {
   });
   const form = useForm<CreatePollDto>({
     resolver: yupResolver(pollValidation),
-    defaultValues: { name: '', question: '', type: 0, answerOptions: [] },
+    defaultValues: { name: '', enabled: false, question: '', type: 0, answerOptions: [] },
   });
   const {
     register,
@@ -42,6 +43,7 @@ export function CreatePollPage() {
   const onSubmit = (values: CreatePollDto) => {
     mutate({
       name: values.name,
+      enabled: values.enabled,
       question: values.question,
       type: +values.type,
       answerOptions: values.answerOptions,
@@ -77,6 +79,10 @@ export function CreatePollPage() {
               <FormControl isInvalid={!!errors.answerOptions}>
                 <FormLabel>{l('form.poll.label.answerOptions')}</FormLabel>
                 <AnswerOptionsField />
+              </FormControl>
+              <FormControl isInvalid={!!errors.enabled}>
+                <FormLabel>{l('form.poll.label.enabled')}</FormLabel>
+                <Switch {...register('enabled')} />
               </FormControl>
             </VStack>
           </CardBody>

@@ -6,7 +6,7 @@ import { PatchPollDto } from '../../types/dto.types';
 import { PollDocument } from '../../types/types';
 import { joinPath } from '../../utils/path';
 
-export function usePatchPoll(id: string | undefined, onSuccess: () => void) {
+export function usePatchPoll(id: string | undefined, onSuccess?: () => void) {
   return useMutation(
     ['editPoll', id],
     async (body: PatchPollDto) => {

@@ -73,16 +73,11 @@ export function EditPollPage() {
                 <Input {...register('question')} />
                 {!!errors.question && <FormErrorMessage>{errors.question.message}</FormErrorMessage>}
               </FormControl>
-              <FormControl isInvalid={!!errors.type}>
+              <FormControl>
                 <FormLabel>{l('form.poll.label.type')}</FormLabel>
-                <Select {...register('type')}>
-                  {Object.values(PollTypeOptions).map((opt) => (
-                    <option value={opt.value} key={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
+                <Select disabled>
+                  <option>{PollTypeOptions[data.type].label}</option>
                 </Select>
-                {!!errors.type && <FormErrorMessage>{errors.type.message}</FormErrorMessage>}
               </FormControl>
               <FormControl isInvalid={!!errors.answerOptions}>
                 <FormLabel>{l('form.poll.label.answerOptions')}</FormLabel>

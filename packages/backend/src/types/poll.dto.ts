@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { PollType } from '../schemas/poll.schema';
 
 export class CreatePollDto {
@@ -7,6 +7,11 @@ export class CreatePollDto {
   @IsNotEmpty()
   @Expose()
   name: string;
+
+  @IsBoolean()
+  @IsNotEmpty()
+  @Expose()
+  enabled: boolean;
 
   @IsString()
   @IsNotEmpty()
@@ -28,6 +33,11 @@ export class PatchPollDto {
   @IsOptional()
   @Expose()
   name: string;
+
+  @IsBoolean()
+  @IsOptional()
+  @Expose()
+  enabled: boolean;
 
   @IsString()
   @IsOptional()

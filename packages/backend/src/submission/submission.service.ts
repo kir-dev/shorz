@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Poll } from '../schemas/poll.schema';
@@ -14,11 +14,8 @@ export class SubmissionService {
 
   async createSubmission(pollId: string, dto: CreateSubmissionDto) {
     const poll = await this.pollModel.findById(pollId);
-    if (!poll) throw new NotFoundException();
+    if (!poll) throw new NotFoundException('Űrlap nem található');
+    if (!poll.enabled) return new ForbiddenException('A kitöltés nem engedélyezett!');
     return this.submissionModel.create({ ...dto, poll: poll._id });
-  }
-
-  async getSubmissionsForPoll(pollId: string) {
-    return this.submissionModel.find({ poll: pollId });
   }
 }
