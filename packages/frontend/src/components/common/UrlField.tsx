@@ -18,12 +18,12 @@ export function UrlField({ url }: UrlFieldProps) {
   };
   return (
     <Box display='inline-flex'>
+      <Button mr={1} variant='ghost' onClick={copy}>
+        <TbCopy />
+      </Button>
       <NavButton colorScheme='black' to={url} external variant='link'>
         {url}
       </NavButton>
-      <Button variant='ghost' onClick={copy}>
-        <TbCopy />
-      </Button>
     </Box>
   );
 }

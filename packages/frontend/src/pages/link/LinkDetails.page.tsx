@@ -63,15 +63,19 @@ export function LinkDetailsPage() {
     <Page title={data.name || l('title.unknown')} isLoading={isLoading}>
       <CardBody>
         <VStack w='100%' align='flex-start' spacing={5}>
-          <Box>
+          <Box maxW='100%'>
             <IconLabel text={l('page.linkDetails.fullUrl')} icon={<TbExternalLink />} />
-            <UrlField url={data.url} />
+            <Box overflowX='auto'>
+              <UrlField url={data.url} />
+            </Box>
           </Box>
           {SHORTENED_BASE_URL && (
             <>
-              <Box>
+              <Box maxW='100%'>
                 <IconLabel text={l('page.linkDetails.shortenedUrl')} icon={<TbFold />} />
-                <UrlField url={joinPath(SHORTENED_BASE_URL, data.shortId)} />
+                <Box overflowX='auto'>
+                  <UrlField url={joinPath(SHORTENED_BASE_URL, data.shortId)} />
+                </Box>
               </Box>
             </>
           )}

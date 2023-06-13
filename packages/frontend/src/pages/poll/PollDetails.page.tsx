@@ -65,7 +65,7 @@ export function PollDetailsPage() {
   };
 
   return (
-    <Page overflow='hidden' title={data.name || l('title.unknown')} isLoading={isLoading}>
+    <Page overflow='auto' title={data.name || l('title.unknown')} isLoading={isLoading}>
       <CardBody>
         <VStack w='100%' align='flex-start' spacing={5}>
           <Box>
