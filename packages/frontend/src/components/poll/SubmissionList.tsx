@@ -1,4 +1,17 @@
-import { baseTheme, Box, Center, Table, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react';
+import {
+  baseTheme,
+  Box,
+  Center,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tooltip,
+  Tr,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { useMemo } from 'react';
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import { TbAward, TbCircle, TbCircleCheckFilled, TbCircleXFilled } from 'react-icons/tb';
@@ -42,7 +55,9 @@ export function SubmissionList({ submissions, answerOptions }: SubmissionListPro
             {submissions.map((sub) => (
               <Tr key={sub._id} border={0}>
                 <Th textAlign='right' h={20} position='sticky' bg={bgColor} border={0} left={0}>
-                  <Text noOfLines={3}>{sub.name}</Text>
+                  <Tooltip label={sub.name}>
+                    <Text noOfLines={3}>{sub.name}</Text>
+                  </Tooltip>
                 </Th>
                 {answerOptions.map((ao) => (
                   <AnswerTableData key={ao} value={sub.answers.find((ans) => ans.key === ao)?.value} />
