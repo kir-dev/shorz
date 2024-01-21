@@ -64,7 +64,7 @@ const languageData = {
   'page.notFound.actionLabel': 'Amúgy mi az a Shorz?',
   'page.login.text':
     'Jelentkezz be AuthSch fiókoddal! A profilod automatikusan létrejön az első bejelentkezés alkalmával.',
-  'page.login.button': 'Bejelentkezés AuthSch-val',
+  'page.login.button': 'Bejelentkezés',
   'page.login.back': 'Vissza a főoldalra',
   'page.linkDetails.copySuccess': 'Másolva!',
   'page.linkDetails.copyFail': 'Sikertelen másolás!',

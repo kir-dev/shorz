@@ -2,8 +2,10 @@ import * as process from 'process';
 
 export default () => ({
   admin_site: process.env.ADMIN_SITE,
-  authSch_client_id: process.env.AUTHSCH_CLIENT_ID,
-  authSch_client_secret: process.env.AUTHSCH_CLIENT_SECRET,
+  oauth_base_url: process.env.OAUTH_BASE_URL,
+  oauth_client_id: process.env.OAUTH_CLIENT_ID,
+  oauth_client_secret: process.env.OAUTH_CLIENT_SECRET,
+  oauth_redirect_uri: process.env.OAUTH_REDIRECT_URI,
   mongodbUri: process.env.MONGODB_URI,
   expiration: process.env.JWT_EXPIRATION || '1h',
   port: parseInt(process.env.PORT, 10) || 3000,
@@ -12,8 +14,10 @@ export default () => ({
 
 export enum ConfigKeys {
   ADMIN_SITE = 'admin_site',
-  AUTHSCH_CLIENT_ID = 'authSch_client_id',
-  AUTHSCH_CLIENT_SECRET = 'authSch_client_secret',
+  OAUTH_REDIRECT_URI = 'oauth_redirect_uri',
+  OAUTH_BASE_URL = 'oauth_base_url',
+  OAUTH_CLIENT_ID = 'oauth_client_id',
+  OAUTH_CLIENT_SECRET = 'oauth_client_secret',
   EXPIRATION = 'expiration',
   MONGODB_URI = 'mongodbUri',
   PORT = 'port',
