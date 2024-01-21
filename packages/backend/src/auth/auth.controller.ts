@@ -1,6 +1,6 @@
 import { Controller, Get, Request, Res, UseGuards } from '@nestjs/common';
+import { OauthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
-import { OauthGuard } from '../strategies/oauth.strategy';
 import { ConfigService } from '@nestjs/config';
 import { ConfigKeys } from '../utils/configuration';
 

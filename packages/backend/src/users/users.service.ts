@@ -2,17 +2,27 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types, UpdateWriteOpResult } from 'mongoose';
 import { User, UserDocument } from '../schemas/users.schema';
-import { OauthProfile } from '../types/auth.types';
+import { Auth0Profile, AuthSchProfile } from '../types/auth.types';
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private readonly userModel: Model<User>) {}
 
-  async createUser(authSchProfile: OauthProfile): Promise<UserDocument> {
+  async createUser(authSchProfile: AuthSchProfile): Promise<UserDocument> {
     return this.userModel.create({
-      authSchId: authSchProfile.internal_id,
+      authId: authSchProfile.internal_id,
       mail: authSchProfile.mail,
       displayName: authSchProfile.displayName,
+      isAdmin: false,
+      links: [],
+    });
+  }
+
+  async createUserForAuth0User(auth0Profile: Auth0Profile): Promise<UserDocument> {
+    return this.userModel.create({
+      authId: auth0Profile.sub,
+      mail: auth0Profile.email,
+      displayName: auth0Profile.name,
       isAdmin: false,
       links: [],
     });
@@ -38,8 +48,8 @@ export class UsersService {
     return this.userModel.findById(userId);
   }
 
-  async getUserByAuthSchId(authSchId: string): Promise<UserDocument | undefined> {
-    return this.userModel.findOne({ authSchId });
+  async getUserByAuthId(authId: string): Promise<UserDocument | undefined> {
+    return this.userModel.findOne({ authId: authId });
   }
 
   async setUserAdminRole(userId: string, isAdmin: boolean): Promise<UpdateWriteOpResult | undefined> {
