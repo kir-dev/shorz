@@ -1,6 +1,7 @@
 import { Expose } from 'class-transformer';
 import { IsBoolean, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { PollType } from '../schemas/poll.schema';
+import { ObjectId } from 'mongoose';
 
 export class CreatePollDto {
   @IsString()
@@ -12,6 +13,11 @@ export class CreatePollDto {
   @IsNotEmpty()
   @Expose()
   enabled: boolean;
+
+  @IsBoolean()
+  @IsNotEmpty()
+  @Expose()
+  confidential: boolean;
 
   @IsString()
   @IsNotEmpty()
@@ -49,3 +55,34 @@ export class PatchPollDto {
   @Expose()
   answerOptions: string[];
 }
+
+type Poll = {
+  _id: ObjectId;
+  name: string;
+  enabled: boolean;
+  confidential: boolean;
+  question: string;
+  type: PollType;
+  answerOptions: string[];
+};
+
+export type PollWithSubmissions = Poll & { submissions: Submission[] };
+
+export enum SubmissionAnswerValue {
+  NO,
+  MAYBE,
+  YES,
+}
+
+type SubmissionAnswer = { key: string; value: SubmissionAnswerValue };
+
+type Submission = {
+  _id: ObjectId;
+  name: string;
+  poll: string;
+  answers: SubmissionAnswer[];
+};
+
+export type ConfidentialPollResult = {
+  key: string;
+} & { [K in SubmissionAnswerValue]: number };

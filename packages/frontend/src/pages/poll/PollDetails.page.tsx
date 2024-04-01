@@ -107,16 +107,26 @@ export function PollDetailsPage() {
             />
             <HStack>
               <Switch
+                isDisabled={data.confidential && data.results && !data.enabled}
                 defaultChecked={data.enabled}
                 checked={data.enabled}
                 onChange={(e) => onChangeState(e.target.checked)}
               />
               {pollPatch.isLoading && <Spinner size='sm' />}
+              {data.confidential && data.results && !data.enabled && (
+                <Text color='red'>{l('page.pollDetails.reenableConfidential')}</Text>
+              )}
             </HStack>
             {pollPatch.isError && <Text color='red'>{l('error.general')}</Text>}
           </Box>
-          {data.submissions.length > 0 ? (
-            <SubmissionList answerOptions={data.answerOptions} submissions={data.submissions} />
+          {data.confidential ? (
+            data.enabled ? (
+              <EmptyListPlaceholder text={l('page.pollDetails.activeConfidential')} hideArrow />
+            ) : (
+              <p>TODO Ide kell egy másik táblázat, ami nevek helyett csak a számokat mutatja</p>
+            )
+          ) : data?.submissions?.length ? (
+            <SubmissionList answerOptions={data.answerOptions} submissions={data.submissions ?? []} />
           ) : (
             <EmptyListPlaceholder text={l('page.pollDetails.empty')} hideArrow />
           )}

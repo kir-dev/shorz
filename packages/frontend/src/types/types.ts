@@ -21,12 +21,17 @@ export enum PollType {
 export type Poll = {
   name: string;
   enabled: boolean;
+  confidential: boolean;
   question: string;
   type: PollType;
   answerOptions: string[];
 };
 
-export type PollWithSubmissions = Poll & { submissions: SubmissionDocument[] };
+export type ConfidentialPollResult = {
+  key: string;
+} & { [K in SubmissionAnswerValue]: number };
+
+export type PollWithSubmissions = Poll & { submissions?: SubmissionDocument[]; results?: ConfidentialPollResult[] };
 
 export enum SubmissionAnswerValue {
   NO,
@@ -43,6 +48,7 @@ export type Submission = {
 };
 
 export type User = {
+  authId: string;
   displayName: string;
   mail: string;
   isAdmin: boolean;

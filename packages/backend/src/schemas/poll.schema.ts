@@ -21,6 +21,10 @@ export class Poll {
   @IsBoolean()
   enabled: boolean;
 
+  @Prop({ required: true, default: false })
+  @IsBoolean()
+  confidential: boolean;
+
   @Prop({ required: true })
   @IsString()
   question: string;
