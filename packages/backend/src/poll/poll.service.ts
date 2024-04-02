@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Poll } from '../schemas/poll.schema';
@@ -36,6 +36,7 @@ export class PollService {
         ])
         .exec()
     )?.[0];
+    if (!pollWithSubmissions) throw new NotFoundException('A szavazás nem található!');
     if (!pollWithSubmissions.confidential) return pollWithSubmissions;
     const { submissions, ...poll } = pollWithSubmissions;
 
@@ -82,8 +83,13 @@ export class PollService {
         .exec()
     )?.[0];
 
-    if (dto.enabled && !pollWithSubmissions.enabled && pollWithSubmissions.submissions.length > 0) {
-      throw new BadRequestException("Can't re-enable a confidential poll!");
+    if (
+      dto.enabled &&
+      !pollWithSubmissions.enabled &&
+      pollWithSubmissions.confidential &&
+      pollWithSubmissions.submissions.length > 0
+    ) {
+      throw new BadRequestException('Bizalmas szavazást nem lehet újra engedélyezni!');
     }
 
     return this.pollModel.updateOne({ _id: id }, { $set: dto });

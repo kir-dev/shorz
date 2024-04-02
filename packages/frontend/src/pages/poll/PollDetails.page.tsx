@@ -25,7 +25,8 @@ import { NavButton } from '../../components/button/NavButton';
 import { IconLabel } from '../../components/common/IconLabel';
 import { UrlField } from '../../components/common/UrlField';
 import { EmptyListPlaceholder } from '../../components/feedback/EmptyListPlaceholder';
-import { SubmissionList } from '../../components/poll/SubmissionList';
+import { ConfidentialVoteResult } from '../../components/poll/ConfidentialVoteResult';
+import { ConfidentialSubmissionList, SubmissionList } from '../../components/poll/SubmissionList';
 import { CLIENT_BASE_URL, SHORTENED_BASE_URL } from '../../config/environment.config';
 import { UIPaths } from '../../config/paths.config';
 import { Page } from '../../layout/Page';
@@ -34,6 +35,7 @@ import { useLinkByUrl } from '../../network/link/useLinkByUrl.network';
 import { useDeletePoll } from '../../network/poll/useDeletePoll.network';
 import { usePatchPoll } from '../../network/poll/usePatchPoll.network';
 import { usePoll } from '../../network/poll/usePoll.network';
+import { PollType } from '../../types/types';
 import { l } from '../../utils/language';
 import { joinPath } from '../../utils/path';
 import { ErrorPage } from '../utility/Error.page';
@@ -122,8 +124,10 @@ export function PollDetailsPage() {
           {data.confidential ? (
             data.enabled ? (
               <EmptyListPlaceholder text={l('page.pollDetails.activeConfidential')} hideArrow />
+            ) : data.type === PollType.SINGLE ? (
+              <ConfidentialVoteResult results={data.results ?? []} />
             ) : (
-              <p>TODO Ide kell egy másik táblázat, ami nevek helyett csak a számokat mutatja</p>
+              <ConfidentialSubmissionList answerOptions={data.answerOptions} results={data.results ?? []} />
             )
           ) : data?.submissions?.length ? (
             <SubmissionList answerOptions={data.answerOptions} submissions={data.submissions ?? []} />

@@ -76,6 +76,7 @@ const languageData = {
   'page.linkDetails.qrCode.download': 'Letöltés',
   'page.pollDetails.question': 'Kérdés',
   'page.pollDetails.enabled': 'Kitöltés engedélyezése',
+  'page.pollDetails.results': 'Eredmények',
   'page.pollDetails.link': 'Link a szavazáshoz',
   'page.pollDetails.shortened': 'Rövidítve',
   'page.pollDetails.shorten': 'Rövidítés',
