@@ -1,9 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Poll } from '../schemas/poll.schema';
 import { Submission } from '../schemas/submission.schema';
-import { CreatePollDto, PatchPollDto } from '../types/poll.dto';
+import {
+  ConfidentialPollResult,
+  CreatePollDto,
+  PatchPollDto,
+  PollWithSubmissions,
+  SubmissionAnswerValue,
+} from '../types/poll.dto';
 
 @Injectable()
 export class PollService {
@@ -22,7 +28,7 @@ export class PollService {
   }
 
   async getPollById(id: Types.ObjectId) {
-    return (
+    const pollWithSubmissions: PollWithSubmissions = (
       await this.pollModel
         .aggregate([
           { $match: { _id: id } },
@@ -30,6 +36,33 @@ export class PollService {
         ])
         .exec()
     )?.[0];
+    if (!pollWithSubmissions) throw new NotFoundException('A szavazás nem található!');
+    if (!pollWithSubmissions.confidential) return pollWithSubmissions;
+    const { submissions, ...poll } = pollWithSubmissions;
+
+    if (pollWithSubmissions.enabled) {
+      return poll;
+    } else {
+      const results: ConfidentialPollResult[] = poll.answerOptions.map((k) => ({
+        key: k,
+        [SubmissionAnswerValue.NO]: submissions.reduce(
+          (count, s) => count + s.answers.filter((a) => a.key === k && a.value === SubmissionAnswerValue.NO).length,
+          0
+        ),
+        [SubmissionAnswerValue.YES]: submissions.reduce(
+          (count, s) => count + s.answers.filter((a) => a.key === k && a.value === SubmissionAnswerValue.YES).length,
+          0
+        ),
+        [SubmissionAnswerValue.MAYBE]: submissions.reduce(
+          (count, s) => count + s.answers.filter((a) => a.key === k && a.value === SubmissionAnswerValue.MAYBE).length,
+          0
+        ),
+      }));
+      return {
+        ...poll,
+        results,
+      };
+    }
   }
 
   async getPublicPollById(id: Types.ObjectId) {
@@ -41,6 +74,24 @@ export class PollService {
   }
 
   async updatePoll(id: Types.ObjectId, dto: PatchPollDto) {
+    const pollWithSubmissions: PollWithSubmissions = (
+      await this.pollModel
+        .aggregate([
+          { $match: { _id: id } },
+          { $lookup: { from: 'submissions', localField: '_id', foreignField: 'poll', as: 'submissions' } },
+        ])
+        .exec()
+    )?.[0];
+
+    if (
+      dto.enabled &&
+      !pollWithSubmissions.enabled &&
+      pollWithSubmissions.confidential &&
+      pollWithSubmissions.submissions.length > 0
+    ) {
+      throw new BadRequestException('Bizalmas szavazást nem lehet újra engedélyezni!');
+    }
+
     return this.pollModel.updateOne({ _id: id }, { $set: dto });
   }
 

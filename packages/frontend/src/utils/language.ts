@@ -48,6 +48,7 @@ const languageData = {
   'form.poll.label.question': 'Kérdés / felszólítás',
   'form.poll.label.answerOptions': 'Válaszlehetőségek',
   'form.poll.label.enabled': 'Kitöltés engedélyezve alapból',
+  'form.poll.label.confidential': 'Bizalmas szavazás. Csak bejelentkezett felhasználók tudnak szavazni',
   'form.poll.warning.answerOptions':
     'Az kitöltésekben található válaszok a szöveg alapján vannak elmentve és hivatkozva. Amennyiben módosítod egy lehetőség szövegét, úgy egyes válaszok nem kerülnek megjelenítésre (de továbbra is megmaradnak)!',
   'form.poll.tip.answerOptions':
@@ -75,11 +76,16 @@ const languageData = {
   'page.linkDetails.qrCode.download': 'Letöltés',
   'page.pollDetails.question': 'Kérdés',
   'page.pollDetails.enabled': 'Kitöltés engedélyezése',
+  'page.pollDetails.results': 'Eredmények',
   'page.pollDetails.link': 'Link a szavazáshoz',
   'page.pollDetails.shortened': 'Rövidítve',
   'page.pollDetails.shorten': 'Rövidítés',
   'page.pollDetails.show': 'Megtekintés',
   'page.pollDetails.empty': 'Nem érkezett szavazat',
+  'page.pollDetails.activeConfidential':
+    'Még engedélyezett a bizalmas szavazás kitöltése, így az eredményeket elrejtettük',
+  'page.pollDetails.reenableConfidential':
+    'Bizalmast szavazást nem lehet újra engedélyezni, ha már érkeztek be szavazatok!',
   'page.pollDetails.mostVote': 'Legtöbb "Igen" szavazat erre volt:',
   'page.dashboard.tileHelpText': 'Átirányítás',
   'page.landing.button': 'Vágjunk bele!',

@@ -33,7 +33,7 @@ export function CreatePollPage() {
   });
   const form = useForm<CreatePollDto>({
     resolver: yupResolver(pollValidation),
-    defaultValues: { name: '', enabled: false, question: '', type: 0, answerOptions: [] },
+    defaultValues: { name: '', enabled: false, confidential: false, question: '', type: 0, answerOptions: [] },
   });
   const {
     register,
@@ -44,6 +44,7 @@ export function CreatePollPage() {
     mutate({
       name: values.name,
       enabled: values.enabled,
+      confidential: values.confidential,
       question: values.question,
       type: +values.type,
       answerOptions: values.answerOptions,
@@ -83,6 +84,10 @@ export function CreatePollPage() {
               <FormControl isInvalid={!!errors.enabled}>
                 <FormLabel>{l('form.poll.label.enabled')}</FormLabel>
                 <Switch {...register('enabled')} />
+              </FormControl>
+              <FormControl isInvalid={!!errors.confidential}>
+                <FormLabel>{l('form.poll.label.confidential')}</FormLabel>
+                <Switch {...register('confidential')} />
               </FormControl>
             </VStack>
           </CardBody>

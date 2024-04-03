@@ -16,7 +16,7 @@ import { useMemo } from 'react';
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import { TbAward, TbCircle, TbCircleCheckFilled, TbCircleXFilled } from 'react-icons/tb';
 
-import { SubmissionAnswerValue, SubmissionDocument } from '../../types/types';
+import { ConfidentialPollResult, SubmissionAnswerValue, SubmissionDocument } from '../../types/types';
 import { l } from '../../utils/language';
 import { IconLabel } from '../common/IconLabel';
 
@@ -41,16 +41,7 @@ export function SubmissionList({ submissions, answerOptions }: SubmissionListPro
     <>
       <Box maxW='100%' overflowX='scroll' pb={5}>
         <Table>
-          <Thead>
-            <Tr bg={bgColor}>
-              <Th w={20} position='sticky' bg={bgColor} border={0} left={-1} />
-              {answerOptions.map((ao, index) => (
-                <Th key={index} maxW={200} overflow='hidden' verticalAlign='bottom'>
-                  <Text noOfLines={3}>{ao}</Text>
-                </Th>
-              ))}
-            </Tr>
-          </Thead>
+          <SubmissionListHeader answerOptions={answerOptions} />
           <Tbody>
             {submissions.map((sub) => (
               <Tr key={sub._id} border={0}>
@@ -77,11 +68,51 @@ export function SubmissionList({ submissions, answerOptions }: SubmissionListPro
   );
 }
 
-interface AnswerTableDataProps {
-  value: SubmissionAnswerValue | undefined;
+interface ConfidentialSubmissionListProps {
+  results: ConfidentialPollResult[];
+  answerOptions: string[];
 }
 
-function AnswerTableData({ value }: AnswerTableDataProps) {
+export function ConfidentialSubmissionList({ results, answerOptions }: ConfidentialSubmissionListProps) {
+  const bestOptions = useMemo(() => {
+    const maxCount = Math.max(...results.map((r) => r[SubmissionAnswerValue.YES]));
+    return results.filter((r) => r[SubmissionAnswerValue.YES] === maxCount).map((r) => r.key);
+  }, [results, answerOptions]);
+  return (
+    <>
+      <Box maxW='100%' overflowX='scroll' pb={5}>
+        <Table>
+          <SubmissionListHeader answerOptions={answerOptions} />
+          <Tbody>
+            {[SubmissionAnswerValue.YES, SubmissionAnswerValue.NO, SubmissionAnswerValue.MAYBE].map((sav) => (
+              <Tr key={sav} border={0}>
+                <AnswerTableData value={sav} noWrapper />
+                {answerOptions.map((ao) => (
+                  <Td textAlign='center' key={ao}>
+                    {results.find((r) => r.key === ao)?.[sav]}
+                  </Td>
+                ))}
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </Box>
+      <Box>
+        <IconLabel text={l('page.pollDetails.mostVote')} icon={<TbAward />} />
+        {bestOptions.map((bo, i) => (
+          <Text key={i}>{bo}</Text>
+        ))}
+      </Box>
+    </>
+  );
+}
+
+interface AnswerTableDataProps {
+  value: SubmissionAnswerValue | undefined;
+  noWrapper?: boolean;
+}
+
+function AnswerTableData({ value, noWrapper = false }: AnswerTableDataProps) {
   let color = useRawColor('gray');
   const red = useRawColor('red');
   const yellow = useRawColor('yellow');
@@ -102,7 +133,20 @@ function AnswerTableData({ value }: AnswerTableDataProps) {
         icon = <TbCircleCheckFilled />;
     }
   }
-  return (
+  return noWrapper ? (
+    <Th
+      textAlign='right'
+      h={20}
+      position='sticky'
+      left={0}
+      fontSize={30}
+      bgColor={color + '20'}
+      color={color}
+      border={0}
+    >
+      <Center width='100%'>{icon}</Center>
+    </Th>
+  ) : (
     <Td fontSize={30} bgColor={color + '20'} color={color} border={0}>
       <Center width='100%'>{icon}</Center>
     </Td>
@@ -111,4 +155,24 @@ function AnswerTableData({ value }: AnswerTableDataProps) {
 
 function useRawColor(color: keyof typeof baseTheme.colors) {
   return useColorModeValue(baseTheme.colors[color]['500'], baseTheme.colors[color]['200']);
+}
+
+interface SubmissionListHeaderProps {
+  answerOptions: string[];
+}
+
+function SubmissionListHeader({ answerOptions }: SubmissionListHeaderProps) {
+  const bgColor = useColorModeValue('white', 'gray.700');
+  return (
+    <Thead>
+      <Tr bg={bgColor}>
+        <Th w={20} position='sticky' bg={bgColor} border={0} left={-1} />
+        {answerOptions.map((ao, index) => (
+          <Th key={index} maxW={200} overflow='hidden' verticalAlign='bottom'>
+            <Text noOfLines={3}>{ao}</Text>
+          </Th>
+        ))}
+      </Tr>
+    </Thead>
+  );
 }

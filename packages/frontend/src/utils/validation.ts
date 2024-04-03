@@ -14,6 +14,7 @@ export const linkValidation: SchemaOf<CreateLinkDto> = object({
 export const pollValidation: SchemaOf<CreatePollDto> = object({
   name: string().required(l('form.validation.required')),
   enabled: boolean().required(l('form.validation.required')),
+  confidential: boolean().required(l('form.validation.required')),
   question: string().required(l('form.validation.required')),
   type: number().required(l('form.validation.required')),
   answerOptions: array().min(1, l('form.validation.min')),
@@ -21,5 +22,10 @@ export const pollValidation: SchemaOf<CreatePollDto> = object({
 
 export const submissionValidation: SchemaOf<CreateSubmissionDto> = object({
   name: string().required(l('form.validation.required')),
+  answers: array(),
+});
+
+export const confidentialSubmissionValidation: SchemaOf<CreateSubmissionDto> = object({
+  name: string().default(''),
   answers: array(),
 });
