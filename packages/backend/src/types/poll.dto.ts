@@ -29,6 +29,12 @@ export class CreatePollDto {
   @Expose()
   type: PollType;
 
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  @Expose()
+  group?: string;
+
   @IsString({ each: true })
   @Expose()
   answerOptions: string[];
