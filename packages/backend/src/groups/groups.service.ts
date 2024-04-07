@@ -71,7 +71,7 @@ export class GroupsService {
   }
 
   async remove(id: string, userId: Types.ObjectId) {
-    const group = await this.groupModel.findOne({ admin: userId });
+    const group = await this.groupModel.findOne({ _id: id, admin: userId });
     if (!group) {
       throw new ForbiddenException('Nincs jogod a csoport törléséhez!');
     }

@@ -11,6 +11,7 @@ export type LinkDocument = Document<Link>;
 export type PollDocument = Document<Poll>;
 export type SubmissionDocument = Document<Submission>;
 export type PollDocumentWithSubmissions = Document<PollWithSubmissions>;
+export type GroupDocument = Document<Group>;
 
 export enum PollType {
   SINGLE,
@@ -60,6 +61,12 @@ export type Link = {
   shortId: string;
   url: string;
   timestamps: number[];
+};
+
+export type Group = {
+  name: string;
+  admin: string;
+  memberIds: string[];
 };
 
 export type RouterItem = MenuPage | RoutePage;

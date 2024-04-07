@@ -1,6 +1,6 @@
 import { array, boolean, number, object, SchemaOf, string } from 'yup';
 
-import { CreateLinkDto, CreatePollDto, CreateSubmissionDto } from '../types/dto.types';
+import { CreateGroupDto, CreateLinkDto, CreatePollDto, CreateSubmissionDto } from '../types/dto.types';
 import { l } from './language';
 
 const urlRegex = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/i;
@@ -28,4 +28,8 @@ export const submissionValidation: SchemaOf<CreateSubmissionDto> = object({
 export const confidentialSubmissionValidation: SchemaOf<CreateSubmissionDto> = object({
   name: string().default(''),
   answers: array(),
+});
+
+export const groupValidation: SchemaOf<CreateGroupDto> = object({
+  name: string().required(l('form.validation.required')),
 });

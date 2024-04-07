@@ -16,6 +16,9 @@ const languageData = {
   'title.login': 'Bejelentkezés',
   'title.dashboard': 'Dashboard',
   'title.users': 'Felhasználók',
+  'title.groups': 'Csoportok',
+  'title.editGroup': 'Csoport szerkesztése',
+  'title.createGroup': 'Csoport létrehozása',
   'error.wrongCredentials': 'Hibás bejelentkezési adatok',
   'error.unauthorized': 'Nem vagy bejelentkezve',
   'error.forbidden': 'Nincs jogosultságod',
@@ -53,7 +56,7 @@ const languageData = {
     'Az kitöltésekben található válaszok a szöveg alapján vannak elmentve és hivatkozva. Amennyiben módosítod egy lehetőség szövegét, úgy egyes válaszok nem kerülnek megjelenítésre (de továbbra is megmaradnak)!',
   'form.poll.tip.answerOptions':
     'Beérkezett kitöltések után a kérdések szerkesztését nem javasoljuk, a kérdés felvételét, törlését és sorrendmódosítást ajánljuk!',
-
+  'form.group.label.name': 'Név',
   'navbar.section.user': 'Felhasználó',
   'navbar.section.things': 'Dolgaim',
   'navbar.unknown': 'Ismeretlen',

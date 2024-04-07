@@ -5,7 +5,7 @@ import { AddMembersDto, CreateGroupDto } from 'src/types/group.dto';
 import { UserDocument } from 'src/schemas/users.schema';
 
 @UseGuards(JwtAuthGuard)
-@Controller('groups')
+@Controller('admin/groups')
 export class GroupsController {
   constructor(private readonly groupsService: GroupsService) {}
 

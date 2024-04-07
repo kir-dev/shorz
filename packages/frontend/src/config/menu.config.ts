@@ -1,5 +1,9 @@
-import { TbCheckupList, TbLink, TbListDetails, TbUser } from 'react-icons/tb';
+import { TbCheckupList, TbLink, TbListDetails, TbUser, TbUsers } from 'react-icons/tb';
 
+import { CreateGroupPage } from '../pages/group/CreateGroup.page';
+import { EditGroupPage } from '../pages/group/EditGroup.page';
+import { GroupDetailsPage } from '../pages/group/GroupDetails.page';
+import { GroupsPage } from '../pages/group/Groups.page';
 import { CreateLinkPage } from '../pages/link/CreateLink.page';
 import { EditLinkPage } from '../pages/link/EditLink.page';
 import { LinkDetailsPage } from '../pages/link/LinkDetails.page';
@@ -54,5 +58,23 @@ export const MenuItems: RouterItem[] = [
     path: UIPaths.USERS,
     page: UsersPage,
     admin: true,
+  },
+  {
+    name: l('title.groups'),
+    icon: TbUsers({}),
+    path: UIPaths.GROUP,
+    page: GroupsPage,
+  },
+  {
+    path: UIPaths.NEW_GROUP,
+    page: CreateGroupPage,
+  },
+  {
+    path: UIPaths.GROUP_DETAILS,
+    page: GroupDetailsPage,
+  },
+  {
+    path: UIPaths.EDIT_GROUP,
+    page: EditGroupPage,
   },
 ];
