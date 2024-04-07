@@ -27,11 +27,12 @@ import { confidentialSubmissionValidation, submissionValidation } from '../../ut
 import { ErrorPage } from '../utility/Error.page';
 import { LoadingPage } from '../utility/Loading.page';
 import { FillPollDisabledPage } from './FillPollDisabled.page';
+import { FillPollSuccessPage } from './FillPollSuccess.page';
 
 export function FillPollPage() {
   const { id } = useParams();
   const { data, isLoading, isError } = usePublicPoll(id);
-  const { isAuthenticated, user } = useAuthContext();
+  const { user } = useAuthContext();
   const navigate = useNavigate();
   const { isLoading: isSubmitLoading, mutate } = useCreateSubmission(id, () => navigate(UIPaths.FILL_SUCCESS));
   const form = useForm<CreateSubmissionDto>({
@@ -47,9 +48,6 @@ export function FillPollPage() {
 
   useEffect(() => {
     if (data) {
-      if (data.confidential && !isAuthenticated) {
-        navigate(UIPaths.LOGIN);
-      }
       reset({ answers: getDefaultAnswerArray(data.answerOptions) });
     }
   }, [data]);
@@ -66,6 +64,7 @@ export function FillPollPage() {
   if (!data.enabled) {
     return <FillPollDisabledPage title={data.question} />;
   }
+  if (data.submission) return <FillPollSuccessPage />;
   return (
     <Page title={data.question}>
       <FormProvider {...form}>

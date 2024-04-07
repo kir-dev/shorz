@@ -1,7 +1,7 @@
 import { Body, Controller, Param, Post, Request, UseGuards } from '@nestjs/common';
+import { OptionalAuthGuard } from 'src/auth/auth.guard';
 import { CreateSubmissionDto } from '../types/submission.dto';
 import { SubmissionService } from './submission.service';
-import { OptionalAuthGuard } from 'src/auth/auth.guard';
 
 @Controller('submission')
 export class SubmissionController {

@@ -1,6 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
+import { Group } from 'src/schemas/group.schema';
+import { User, UserDocument } from 'src/schemas/users.schema';
 import { Poll } from '../schemas/poll.schema';
 import { Submission } from '../schemas/submission.schema';
 import {
@@ -10,8 +12,6 @@ import {
   PollWithSubmissions,
   SubmissionAnswerValue,
 } from '../types/poll.dto';
-import { Group } from 'src/schemas/group.schema';
-import { User } from 'src/schemas/users.schema';
 
 @Injectable()
 export class PollService {
@@ -84,8 +84,17 @@ export class PollService {
     }
   }
 
-  async getPublicPollById(id: Types.ObjectId) {
-    return this.pollModel.findById(id).select({ user: 0 });
+  async getPublicPollById(id: Types.ObjectId, user?: UserDocument) {
+    const poll = await this.pollModel.findById(id).select({ user: 0 });
+    if (poll?.confidential) {
+      if (!user) throw new UnauthorizedException('A szavazás bizalmas!');
+      const submission = await this.submissionModel.findOne({
+        poll: id,
+        name: user.authId,
+      });
+      return { ...poll.toJSON(), submission };
+    }
+    return poll;
   }
 
   async createPoll(userId: Types.ObjectId, dto: CreatePollDto) {

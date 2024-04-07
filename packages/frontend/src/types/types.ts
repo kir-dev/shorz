@@ -26,6 +26,7 @@ export type Poll = {
   question: string;
   type: PollType;
   answerOptions: string[];
+  submission?: SubmissionDocument;
 };
 
 export type ConfidentialPollResult = {
