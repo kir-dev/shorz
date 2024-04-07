@@ -26,6 +26,7 @@ const languageData = {
   'error.notFound': 'Nem található',
   'error.create': 'Létrehozás sikertelen',
   'error.save': 'Mentés sikertelen',
+  'error.addMember': 'Tag hozzáadása sikertelen',
   'success.save': 'Sikeres mentés',
   'button.add': 'Hozzáadás',
   'button.duplicate': 'Hozzáadás',
@@ -108,4 +109,5 @@ const languageData = {
   'page.pollSuccess.title': 'Szavazat beküldve',
   'page.pollSuccess.description': 'A szavazatod megkaptuk!',
   'page.pollSuccess.disabled': 'A szavazás nincs engedélyezve!',
+  'page.groups.addMember': 'Tag hozzáadása',
 };

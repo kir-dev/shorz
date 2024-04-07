@@ -8,3 +8,5 @@ export type CreateSubmissionDto = Omit<Submission, 'poll'>;
 export type SetRoleDto = { isAdmin: boolean };
 export type CreateGroupDto = Omit<Group, 'memberIds' | 'admin'>;
 export type PatchGroupDto = Partial<Omit<Group, 'memberIds' | 'admin'>>;
+export type AddMemberToGroupDto = { memberMail: string };
+export type RemoveMemberFromGroupDto = { memberId: string };

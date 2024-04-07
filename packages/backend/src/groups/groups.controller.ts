@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
-import { GroupsService } from './groups.service';
-import { JwtAuthGuard } from 'src/strategies/jwt.strategy';
-import { AddMembersDto, CreateGroupDto } from 'src/types/group.dto';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { UserDocument } from 'src/schemas/users.schema';
+import { JwtAuthGuard } from 'src/strategies/jwt.strategy';
+import { AddMemberDto, CreateGroupDto } from 'src/types/group.dto';
+import { GroupsService } from './groups.service';
 
 @UseGuards(JwtAuthGuard)
 @Controller('admin/groups')
@@ -16,15 +16,15 @@ export class GroupsController {
   }
 
   @Post(':id/members/')
-  addMembers(@Req() req, @Param('id') id: string, @Body() dto: AddMembersDto) {
+  addMember(@Req() req, @Param('id') id: string, @Body() dto: AddMemberDto) {
     const user = req.user as UserDocument;
-    return this.groupsService.addMembers(dto, id, user._id);
+    return this.groupsService.addMember(dto, id, user._id);
   }
 
-  @Delete(':id/members/')
-  removeMembers(@Req() req, @Param('id') id: string, @Body() dto: AddMembersDto) {
+  @Delete(':id/members/:memberId')
+  removeMembers(@Req() req, @Param('id') id: string, @Param('memberId') memberId: string) {
     const user = req.user as UserDocument;
-    return this.groupsService.removeMembers(dto, id, user._id);
+    return this.groupsService.removeMember(memberId, id, user._id);
   }
 
   @Get()

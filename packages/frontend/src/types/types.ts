@@ -69,6 +69,13 @@ export type Group = {
   memberIds: string[];
 };
 
+export type GroupDetails = {
+  name: string;
+  isAdmin: boolean;
+  members: UserDocument[];
+  polls: PollDocument[];
+};
+
 export type RouterItem = MenuPage | RoutePage;
 
 export type MenuPage = {

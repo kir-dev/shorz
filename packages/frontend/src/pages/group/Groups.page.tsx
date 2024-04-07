@@ -15,7 +15,7 @@ export function GroupsPage() {
   if (isLoading) return <LoadingPage />;
   if (!data || isError) return <ErrorPage />;
   return (
-    <Page title='Groups'>
+    <Page title={l('title.groups')}>
       <CardBody>
         <VStack w='100%'>
           {data && data.length > 0 ? (

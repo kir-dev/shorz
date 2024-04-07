@@ -1,5 +1,8 @@
 import { Expose } from 'class-transformer';
-import { IsArray, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
+import { Group } from '../schemas/group.schema';
+import { PollDocument } from '../schemas/poll.schema';
+import { UserDocument } from '../schemas/users.schema';
 
 export class CreateGroupDto {
   @IsString()
@@ -8,10 +11,30 @@ export class CreateGroupDto {
   name: string;
 }
 
-export class AddMembersDto {
-  @IsString({ each: true })
-  @IsArray()
+export class AddMemberDto {
+  @IsString()
   @Expose()
-  @IsNotEmpty({ each: true })
-  members: string[];
+  @IsNotEmpty()
+  memberMail: string;
+}
+
+export class RemoveMemberDto {
+  @IsString()
+  @Expose()
+  @IsNotEmpty()
+  memberId: string;
+}
+
+export class GroupDto implements Pick<Group, 'name'> {
+  @Expose()
+  name: string;
+
+  @Expose()
+  isAdmin: boolean;
+
+  @Expose()
+  polls: PollDocument[];
+
+  @Expose()
+  members: UserDocument[];
 }
