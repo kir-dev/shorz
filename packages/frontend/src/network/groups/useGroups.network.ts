@@ -4,9 +4,10 @@ import { useQuery } from 'react-query';
 import { ApiPaths } from '../../config/paths.config';
 import { GroupDocument } from '../../types/types';
 
-export function useGroups() {
+export function useGroups(withAdmin = false) {
   return useQuery('groups', async () => {
-    const response = await axios.get<GroupDocument[]>(ApiPaths.GROUP);
+    const path = withAdmin ? `${ApiPaths.GROUP}?with-admin=true` : ApiPaths.GROUP;
+    const response = await axios.get<GroupDocument[]>(path);
     return response.data;
   });
 }

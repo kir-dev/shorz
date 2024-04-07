@@ -24,6 +24,7 @@ export const pollValidation: SchemaOf<CreatePollDto> = object({
   question: string().required(l('form.validation.required')),
   type: number().required(l('form.validation.required')),
   answerOptions: array().min(1, l('form.validation.min')),
+  group: string().optional(),
 });
 
 export const submissionValidation: SchemaOf<CreateSubmissionDto> = object({

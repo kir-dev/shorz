@@ -7,10 +7,10 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { UserDocument } from 'src/schemas/users.schema';
 import { Poll } from '../schemas/poll.schema';
 import { Submission } from '../schemas/submission.schema';
 import { CreateSubmissionDto } from '../types/submission.dto';
-import { User } from 'src/schemas/users.schema';
 
 @Injectable()
 export class SubmissionService {
@@ -19,14 +19,14 @@ export class SubmissionService {
     @InjectModel(Poll.name) private readonly pollModel: Model<Poll>
   ) {}
 
-  async createSubmission(pollId: string, dto: CreateSubmissionDto, user: User | undefined) {
+  async createSubmission(pollId: string, dto: CreateSubmissionDto, user: UserDocument | undefined) {
     const poll = await this.pollModel.findById(pollId).populate('group');
     if (!poll) throw new NotFoundException('Űrlap nem található');
     if (!poll.enabled) return new ForbiddenException('A kitöltés nem engedélyezett!');
     if (!user && (poll.group || poll.confidential)) {
       throw new UnauthorizedException('A szavazáshoz be kell jelentkezned!');
     }
-    if (poll.group && !poll.group.memberIds.includes(user.authId)) {
+    if (poll.group && !poll.group.memberIds.includes(user._id.toString())) {
       throw new ForbiddenException('Te nem szavazhatsz ezen a szavazáson!');
     }
     if (poll.confidential) {

@@ -26,6 +26,7 @@ export type Poll = {
   question: string;
   type: PollType;
   answerOptions: string[];
+  group?: string;
   submission?: SubmissionDocument;
 };
 
@@ -70,11 +71,15 @@ export type Group = {
   memberIds: string[];
 };
 
+export type PollWithSubmissionsDocument = PollDocument & {
+  submissions: SubmissionDocument[];
+};
+
 export type GroupDetails = {
   name: string;
   isAdmin: boolean;
   members: UserDocument[];
-  polls: PollDocument[];
+  polls: PollWithSubmissionsDocument[];
 };
 
 export type RouterItem = MenuPage | RoutePage;

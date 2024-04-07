@@ -19,6 +19,7 @@ const languageData = {
   'title.groups': 'Csoportok',
   'title.editGroup': 'Csoport szerkesztése',
   'title.createGroup': 'Csoport létrehozása',
+  'title.members': 'Tagok',
   'error.wrongCredentials': 'Hibás bejelentkezési adatok',
   'error.unauthorized': 'Nem vagy bejelentkezve',
   'error.forbidden': 'Nincs jogosultságod',
@@ -52,7 +53,9 @@ const languageData = {
   'form.poll.label.question': 'Kérdés / felszólítás',
   'form.poll.label.answerOptions': 'Válaszlehetőségek',
   'form.poll.label.enabled': 'Kitöltés engedélyezve alapból',
-  'form.poll.label.confidential': 'Bizalmas szavazás. Csak bejelentkezett felhasználók tudnak szavazni',
+  'form.poll.label.confidential': 'Bizalmas szavazás, azaz csak bejelentkezett felhasználók tudnak szavazni.',
+  'form.poll.label.group': 'Csoportra korlátozás',
+  'form.poll.placeholder.group': 'Nincs csoport',
   'form.poll.warning.answerOptions':
     'Az kitöltésekben található válaszok a szöveg alapján vannak elmentve és hivatkozva. Amennyiben módosítod egy lehetőség szövegét, úgy egyes válaszok nem kerülnek megjelenítésre (de továbbra is megmaradnak)!',
   'form.poll.tip.answerOptions':
@@ -71,6 +74,7 @@ const languageData = {
     'Jelentkezz be AuthSch fiókoddal! A profilod automatikusan létrejön az első bejelentkezés alkalmával.',
   'page.login.button': 'Bejelentkezés',
   'page.login.back': 'Vissza a főoldalra',
+  'page.back': 'Vissza',
   'page.linkDetails.copySuccess': 'Másolva!',
   'page.linkDetails.copyFail': 'Sikertelen másolás!',
   'page.linkDetails.fullUrl': 'Teljes URL',
@@ -109,5 +113,5 @@ const languageData = {
   'page.pollSuccess.title': 'Szavazat beküldve',
   'page.pollSuccess.description': 'A szavazatod megkaptuk!',
   'page.pollSuccess.disabled': 'A szavazás nincs engedélyezve!',
-  'page.groups.addMember': 'Tag hozzáadása',
+  'page.groups.addMember': 'Tag hozzáadása e-mail cím alapján',
 };

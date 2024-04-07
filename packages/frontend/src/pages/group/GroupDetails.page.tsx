@@ -18,6 +18,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { NavButton } from '../../components/button/NavButton';
 import { AddMember } from '../../components/group/AddMember';
 import { MemberListItem } from '../../components/group/MemberListItem';
+import { PollListItem } from '../../components/poll/PollListItem';
+import { PublicPollListItem } from '../../components/poll/PublicPollListItem';
 import { UIPaths } from '../../config/paths.config';
 import { Page } from '../../layout/Page';
 import { useDeleteGroup } from '../../network/groups/useDeleteGroup.network';
@@ -44,7 +46,23 @@ export function GroupDetailsPage() {
   return (
     <Page title={data.name || l('title.unknown')} isLoading={isLoading}>
       <CardBody>
-        <VStack spacing={4}>
+        <Text fontSize='xl'>{l('title.polls')}</Text>
+        <VStack spacing={4} mt={2} alignItems='start'>
+          {data.polls.map((poll) =>
+            data.isAdmin ? (
+              <PollListItem key={poll._id} poll={poll} />
+            ) : (
+              <PublicPollListItem key={poll._id} poll={poll} />
+            )
+          )}
+          {data.isAdmin && (
+            <NavButton to={joinPath(UIPaths.NEW_POLL + `?groupId=${id}`)}>{l('title.createPoll')}</NavButton>
+          )}
+        </VStack>
+      </CardBody>
+      <CardBody>
+        <Text fontSize='xl'>{l('title.members')}</Text>
+        <VStack spacing={4} mt={2}>
           {data.members.map((member) => (
             <MemberListItem
               onDelete={refetch}

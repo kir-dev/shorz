@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { UserDocument } from 'src/schemas/users.schema';
 import { JwtAuthGuard } from 'src/strategies/jwt.strategy';
 import { AddMemberDto, CreateGroupDto } from 'src/types/group.dto';
@@ -28,9 +28,9 @@ export class GroupsController {
   }
 
   @Get()
-  findAll(@Req() req) {
+  findAll(@Req() req, @Query('with-admin') withAdmin: string) {
     const user = req.user as UserDocument;
-    return this.groupsService.findAll(user);
+    return this.groupsService.findAll(user, withAdmin === 'true');
   }
 
   @Get(':id')

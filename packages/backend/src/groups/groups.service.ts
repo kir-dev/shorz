@@ -43,7 +43,7 @@ export class GroupsService {
     return await this.groupModel.updateOne({ _id: groupId }, { $set: { memberIds: uniqueMembers } });
   }
 
-  async findAll(user: UserDocument) {
+  async findAll(user: UserDocument, withAdmin: boolean) {
     const groups = await this.groupModel.find({
       $or: [
         { admin: user._id },
@@ -54,11 +54,13 @@ export class GroupsService {
         },
       ],
     });
-    return groups.map((group) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { admin, memberIds, ...g } = group.toJSON();
-      return { ...g, isAdmin: admin.toString() === user._id.toString() };
-    });
+    return groups
+      .map((group) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { admin, memberIds, ...g } = group.toJSON();
+        return { ...g, isAdmin: admin.toString() === user._id.toString() };
+      })
+      .filter((g) => !withAdmin || g.isAdmin);
   }
 
   async findOne(id: string, user: UserDocument): Promise<GroupDto> {
@@ -76,9 +78,20 @@ export class GroupsService {
     if (!group) {
       throw new NotFoundException('A csoport nem található!');
     }
-    const polls = await this.pollModel.find({ group: id });
+    const polls = await this.pollModel
+      .aggregate([
+        { $match: { group: id } },
+        {
+          $lookup: { from: 'submissions', localField: '_id', foreignField: 'poll', as: 'submissions' },
+        },
+      ])
+      .exec();
+    const filteredPolls = polls.map((p) => {
+      const { submissions, ...poll } = p;
+      return { ...poll, submissions: submissions.filter((s) => s.name === user.authId) };
+    });
     const members = await this.userModel.find({ _id: { $in: group.memberIds } });
-    return { polls, members, name: group.name, isAdmin: group.admin.toString() === user._id.toString() };
+    return { polls: filteredPolls, members, name: group.name, isAdmin: group.admin.toString() === user._id.toString() };
   }
 
   async update(id: string, dto: CreateGroupDto, userId: Types.ObjectId) {
