@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateGroupDto {
   @IsString()
@@ -10,6 +10,7 @@ export class CreateGroupDto {
 
 export class AddMembersDto {
   @IsString({ each: true })
+  @IsArray()
   @Expose()
   @IsNotEmpty({ each: true })
   members: string[];

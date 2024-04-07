@@ -10,12 +10,16 @@ import {
   PollWithSubmissions,
   SubmissionAnswerValue,
 } from '../types/poll.dto';
+import { Group } from 'src/schemas/group.schema';
+import { User } from 'src/schemas/users.schema';
 
 @Injectable()
 export class PollService {
   constructor(
     @InjectModel(Poll.name) private readonly pollModel: Model<Poll>,
-    @InjectModel(Submission.name) private readonly submissionModel: Model<Submission>
+    @InjectModel(User.name) private readonly userModel: Model<User>,
+    @InjectModel(Submission.name) private readonly submissionModel: Model<Submission>,
+    @InjectModel(Group.name) private readonly groupModel: Model<Group>
   ) {}
 
   async validateOwnership(userId: Types.ObjectId, id: Types.ObjectId) {
@@ -39,9 +43,23 @@ export class PollService {
     if (!pollWithSubmissions) throw new NotFoundException('A szavazás nem található!');
     if (!pollWithSubmissions.confidential) return pollWithSubmissions;
     const { submissions, ...poll } = pollWithSubmissions;
+    const voteInfo = {
+      voted: [],
+      notVoted: [],
+    };
+    if (poll.group) {
+      const group = await this.groupModel.findById(poll.group);
+      const users = await this.userModel.find({ authId: { $in: group.memberIds } });
+      voteInfo.voted = group.memberIds
+        .filter((id) => submissions.map((s) => s.name).includes(id))
+        .map((id) => users.find((u) => u.authId === id).displayName);
+      voteInfo.notVoted = group.memberIds
+        .filter((id) => !submissions.map((s) => s.name).includes(id))
+        .map((id) => users.find((u) => u.authId === id)?.displayName ?? id);
+    }
 
     if (pollWithSubmissions.enabled) {
-      return poll;
+      return { ...poll, voteInfo: poll.group ? voteInfo : undefined };
     } else {
       const results: ConfidentialPollResult[] = poll.answerOptions.map((k) => ({
         key: k,
@@ -61,6 +79,7 @@ export class PollService {
       return {
         ...poll,
         results,
+        voteInfo: poll.group ? voteInfo : undefined,
       };
     }
   }

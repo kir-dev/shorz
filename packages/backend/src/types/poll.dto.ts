@@ -68,6 +68,7 @@ type Poll = {
   enabled: boolean;
   confidential: boolean;
   question: string;
+  group: string;
   type: PollType;
   answerOptions: string[];
 };
