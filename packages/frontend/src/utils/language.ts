@@ -30,6 +30,8 @@ const languageData = {
   'error.addMember': 'Tag hozzáadása sikertelen',
   'success.save': 'Sikeres mentés',
   'button.add': 'Hozzáadás',
+  'button.addOption': 'Új válaszlehetőség',
+  'button.triple': 'Igen/Nem/Tartózkodom hozzáadása',
   'button.duplicate': 'Hozzáadás',
   'button.delete': 'Törlés',
   'button.edit': 'Szerkesztés',
@@ -95,6 +97,7 @@ const languageData = {
   'page.pollDetails.reenableConfidential':
     'Bizalmast szavazást nem lehet újra engedélyezni, ha már érkeztek be szavazatok!',
   'page.pollDetails.mostVote': 'Legtöbb "Igen" szavazat erre volt:',
+  'page.pollDetails.notVoted': 'Tagok, akik még nem szavaztak:',
   'page.dashboard.tileHelpText': 'Átirányítás',
   'page.landing.button': 'Vágjunk bele!',
   'page.landing.title': 'Link rövidítés egyszerűen',

@@ -43,23 +43,17 @@ export class PollService {
     if (!pollWithSubmissions) throw new NotFoundException('A szavazás nem található!');
     if (!pollWithSubmissions.confidential) return pollWithSubmissions;
     const { submissions, ...poll } = pollWithSubmissions;
-    const voteInfo = {
-      voted: [],
-      notVoted: [],
-    };
-    if (poll.group) {
+
+    let notVoted = [];
+    if (poll.group && poll.confidential) {
       const group = await this.groupModel.findById(poll.group);
-      const users = await this.userModel.find({ authId: { $in: group.memberIds } });
-      voteInfo.voted = group.memberIds
-        .filter((id) => submissions.map((s) => s.name).includes(id))
-        .map((id) => users.find((u) => u.authId === id).displayName);
-      voteInfo.notVoted = group.memberIds
-        .filter((id) => !submissions.map((s) => s.name).includes(id))
-        .map((id) => users.find((u) => u.authId === id)?.displayName ?? id);
+      const members = await this.userModel.find({ _id: { $in: group.memberIds } });
+      const submissionNames = submissions.map((s) => s.name);
+      notVoted = members.filter((user) => !submissionNames.includes(user.authId)).map((user) => user.displayName);
     }
 
     if (pollWithSubmissions.enabled) {
-      return { ...poll, voteInfo: poll.group ? voteInfo : undefined };
+      return { ...poll, notVoted };
     } else {
       const results: ConfidentialPollResult[] = poll.answerOptions.map((k) => ({
         key: k,
@@ -79,7 +73,7 @@ export class PollService {
       return {
         ...poll,
         results,
-        voteInfo: poll.group ? voteInfo : undefined,
+        notVoted,
       };
     }
   }

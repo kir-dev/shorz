@@ -34,7 +34,11 @@ export type ConfidentialPollResult = {
   key: string;
 } & { [K in SubmissionAnswerValue]: number };
 
-export type PollWithSubmissions = Poll & { submissions?: SubmissionDocument[]; results?: ConfidentialPollResult[] };
+export type PollWithSubmissions = Poll & {
+  submissions?: SubmissionDocument[];
+  results?: ConfidentialPollResult[];
+  notVoted: string[];
+};
 
 export enum SubmissionAnswerValue {
   NO,

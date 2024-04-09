@@ -15,7 +15,7 @@ export class GroupsService {
   ) {}
 
   create(dto: CreateGroupDto, userId: Types.ObjectId) {
-    return this.groupModel.create({ ...dto, admin: userId, memberIds: [userId] });
+    return this.groupModel.create({ ...dto, admin: userId });
   }
 
   async addMember(dto: AddMemberDto, groupId: string, userId: Types.ObjectId) {

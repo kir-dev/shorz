@@ -40,6 +40,7 @@ import { l } from '../../utils/language';
 import { joinPath } from '../../utils/path';
 import { ErrorPage } from '../utility/Error.page';
 import { LoadingPage } from '../utility/Loading.page';
+import { NotVotedMembers } from './NotVotedMembers';
 
 export function PollDetailsPage() {
   const green = useColorModeValue('green.500', 'green.300');
@@ -121,6 +122,7 @@ export function PollDetailsPage() {
             </HStack>
             {pollPatch.isError && <Text color='red'>{l('error.general')}</Text>}
           </Box>
+          {data.group && data.confidential && data.notVoted.length > 0 && <NotVotedMembers notVoted={data.notVoted} />}
           {data.confidential ? (
             data.enabled ? (
               <EmptyListPlaceholder text={l('page.pollDetails.activeConfidential')} hideArrow />
