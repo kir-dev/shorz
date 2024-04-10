@@ -26,7 +26,7 @@ export function FillPollSuccessPage() {
         <CardFooter>
           <Center>
             {isAuthenticated ? (
-              <Button onClick={() => navigate(-1)}>{l('page.back')}</Button>
+              <Button onClick={() => navigate(-2)}>{l('page.back')}</Button>
             ) : (
               <NavButton to={UIPaths.ROOT}>{l('page.login.back')}</NavButton>
             )}

@@ -52,7 +52,7 @@ export class PollService {
       notVoted = members.filter((user) => !submissionNames.includes(user.authId)).map((user) => user.displayName);
     }
 
-    if (pollWithSubmissions.enabled) {
+    if (pollWithSubmissions.enabled || submissions.length === 0) {
       return { ...poll, notVoted };
     } else {
       const results: ConfidentialPollResult[] = poll.answerOptions.map((k) => ({

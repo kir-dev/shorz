@@ -40,6 +40,7 @@ const languageData = {
   'button.cancel': 'Mégse',
   'button.reset': 'Módosítások elvetése',
   'button.continue': 'Tovább',
+  'button.backToGroup': 'Vissza a csoporthoz',
   'header.confirmDelete': 'Biztosan törlöd?',
   'text.emptyList': 'Itt nincs semmi. Egyelőre. Hozz létre valami újat!',
   'form.validation.required': 'Nem lenne szép üresen hagyni!',
@@ -117,4 +118,5 @@ const languageData = {
   'page.pollSuccess.description': 'A szavazatod megkaptuk!',
   'page.pollSuccess.disabled': 'A szavazás nincs engedélyezve!',
   'page.groups.addMember': 'Tag hozzáadása e-mail cím alapján',
+  'page.groups.noPolls': 'Nincs egyetlen szavazás se',
 };

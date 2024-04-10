@@ -55,6 +55,11 @@ export function GroupDetailsPage() {
               <PublicPollListItem key={poll._id} poll={poll} />
             )
           )}
+          {data.polls.length === 0 && (
+            <Text fontSize='sm' fontStyle='italic'>
+              {l('page.groups.noPolls')}
+            </Text>
+          )}
           {data.isAdmin && (
             <NavButton to={joinPath(UIPaths.NEW_POLL + `?groupId=${id}`)}>{l('title.createPoll')}</NavButton>
           )}

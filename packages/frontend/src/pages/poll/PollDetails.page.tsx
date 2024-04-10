@@ -140,6 +140,7 @@ export function PollDetailsPage() {
       </CardBody>
       <CardFooter>
         <ButtonGroup>
+          {data.group && <NavButton to={joinPath(UIPaths.GROUP, data.group)}>{l('button.backToGroup')}</NavButton>}
           <NavButton to={joinPath(UIPaths.POLL, id, 'edit')}>{l('button.edit')}</NavButton>
           <Popover>
             <PopoverTrigger>
