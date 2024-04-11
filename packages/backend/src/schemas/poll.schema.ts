@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsBoolean, IsEnum, IsString } from 'class-validator';
 import { HydratedDocument, Types } from 'mongoose';
 import { User } from './users.schema';
+import { Group } from './group.schema';
 
 export type PollDocument = HydratedDocument<Poll>;
 
@@ -21,6 +22,10 @@ export class Poll {
   @IsBoolean()
   enabled: boolean;
 
+  @Prop({ required: true, default: false })
+  @IsBoolean()
+  confidential: boolean;
+
   @Prop({ required: true })
   @IsString()
   question: string;
@@ -35,6 +40,9 @@ export class Poll {
 
   @Prop({ type: Types.ObjectId, ref: User.name })
   user: User;
+
+  @Prop({ type: Types.ObjectId, ref: Group.name, required: false })
+  group?: Group;
 }
 
 export const PollSchema = SchemaFactory.createForClass(Poll);

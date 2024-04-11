@@ -26,6 +26,6 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Get('me')
   async getMyUser(@Request() req) {
-    return sanitize<User>(req.user, ['displayName', 'mail', 'isAdmin']);
+    return sanitize<User>(req.user, ['displayName', 'mail', 'isAdmin', 'authId']);
   }
 }

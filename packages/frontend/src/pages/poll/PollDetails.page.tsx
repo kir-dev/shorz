@@ -25,7 +25,8 @@ import { NavButton } from '../../components/button/NavButton';
 import { IconLabel } from '../../components/common/IconLabel';
 import { UrlField } from '../../components/common/UrlField';
 import { EmptyListPlaceholder } from '../../components/feedback/EmptyListPlaceholder';
-import { SubmissionList } from '../../components/poll/SubmissionList';
+import { ConfidentialVoteResult } from '../../components/poll/ConfidentialVoteResult';
+import { ConfidentialSubmissionList, SubmissionList } from '../../components/poll/SubmissionList';
 import { CLIENT_BASE_URL, SHORTENED_BASE_URL } from '../../config/environment.config';
 import { UIPaths } from '../../config/paths.config';
 import { Page } from '../../layout/Page';
@@ -34,10 +35,12 @@ import { useLinkByUrl } from '../../network/link/useLinkByUrl.network';
 import { useDeletePoll } from '../../network/poll/useDeletePoll.network';
 import { usePatchPoll } from '../../network/poll/usePatchPoll.network';
 import { usePoll } from '../../network/poll/usePoll.network';
+import { PollType } from '../../types/types';
 import { l } from '../../utils/language';
 import { joinPath } from '../../utils/path';
 import { ErrorPage } from '../utility/Error.page';
 import { LoadingPage } from '../utility/Loading.page';
+import { NotVotedMembers } from './NotVotedMembers';
 
 export function PollDetailsPage() {
   const green = useColorModeValue('green.500', 'green.300');
@@ -107,23 +110,38 @@ export function PollDetailsPage() {
             />
             <HStack>
               <Switch
+                isDisabled={data.confidential && data.results && !data.enabled}
                 defaultChecked={data.enabled}
                 checked={data.enabled}
                 onChange={(e) => onChangeState(e.target.checked)}
               />
               {pollPatch.isLoading && <Spinner size='sm' />}
+              {data.confidential && data.results && !data.enabled && (
+                <Text color='red'>{l('page.pollDetails.reenableConfidential')}</Text>
+              )}
             </HStack>
             {pollPatch.isError && <Text color='red'>{l('error.general')}</Text>}
           </Box>
-          {data.submissions.length > 0 ? (
-            <SubmissionList answerOptions={data.answerOptions} submissions={data.submissions} />
+          {data.group && data.notVoted.length > 0 && <NotVotedMembers notVoted={data.notVoted} />}
+          {data.confidential ? (
+            data.enabled ? (
+              <EmptyListPlaceholder text={l('page.pollDetails.activeConfidential')} hideArrow />
+            ) : data.type === PollType.SINGLE ? (
+              <ConfidentialVoteResult results={data.results ?? []} />
+            ) : (
+              <ConfidentialSubmissionList answerOptions={data.answerOptions} results={data.results ?? []} />
+            )
+          ) : data?.submissions?.length ? (
+            <SubmissionList answerOptions={data.answerOptions} submissions={data.submissions ?? []} />
           ) : (
             <EmptyListPlaceholder text={l('page.pollDetails.empty')} hideArrow />
           )}
+          {data.group && !data.confidential && <ConfidentialVoteResult results={data.results ?? []} />}
         </VStack>
       </CardBody>
       <CardFooter>
         <ButtonGroup>
+          {data.group && <NavButton to={joinPath(UIPaths.GROUP, data.group)}>{l('button.backToGroup')}</NavButton>}
           <NavButton to={joinPath(UIPaths.POLL, id, 'edit')}>{l('button.edit')}</NavButton>
           <Popover>
             <PopoverTrigger>
