@@ -48,7 +48,6 @@ export function CreatePollPage() {
     },
   });
   const {
-    watch,
     register,
     handleSubmit,
     formState: { errors },
@@ -103,7 +102,7 @@ export function CreatePollPage() {
                 <FormLabel>{l('form.poll.label.confidential')}</FormLabel>
                 <Switch {...register('confidential')} />
               </FormControl>
-              {watch('confidential') && adminGroups.data && adminGroups.data.length > 0 && (
+              {adminGroups.data && adminGroups.data.length > 0 && (
                 <FormControl isInvalid={!!errors.group}>
                   <FormLabel>{l('form.poll.label.group')}</FormLabel>
                   <Select {...register('group')}>
