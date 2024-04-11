@@ -13,6 +13,10 @@ export enum UIPaths {
   NEW_POLL = '/poll/new',
   EDIT_POLL = '/poll/:id/edit',
   DASHBOARD = '/dashboard',
+  GROUP = '/group',
+  GROUP_DETAILS = '/group/:id',
+  NEW_GROUP = '/group/new',
+  EDIT_GROUP = '/group/:id/edit',
   PROFILE = '/profile',
   NOT_FOUND = '/404',
 }
@@ -27,4 +31,5 @@ export enum ApiPaths {
   LOGIN = '/admin/auth/login',
   LINK = '/admin/link',
   LINK_BY_URL = '/admin/link/url',
+  GROUP = '/admin/groups',
 }

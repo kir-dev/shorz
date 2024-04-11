@@ -29,6 +29,12 @@ export class CreatePollDto {
   @Expose()
   type: PollType;
 
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  @Expose()
+  group?: string;
+
   @IsString({ each: true })
   @Expose()
   answerOptions: string[];
@@ -62,6 +68,7 @@ type Poll = {
   enabled: boolean;
   confidential: boolean;
   question: string;
+  group: string;
   type: PollType;
   answerOptions: string[];
 };

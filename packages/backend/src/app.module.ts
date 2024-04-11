@@ -11,6 +11,7 @@ import { QrcodeModule } from './qrcode/qrcode.module';
 import { RedirectModule } from './redirect/redirect.module';
 import { UsersModule } from './users/users.module';
 import configuration, { ConfigKeys } from './utils/configuration';
+import { GroupsModule } from './groups/groups.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import configuration, { ConfigKeys } from './utils/configuration';
     RedirectModule,
     QrcodeModule,
     PollModule,
+    GroupsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

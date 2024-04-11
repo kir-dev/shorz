@@ -26,6 +26,10 @@ function StringList({ value = [], onChange }: StringListProps) {
     onChange([...value, '']);
   };
 
+  const handleAddTriple = () => {
+    onChange([...value, 'Igen', 'Nem', 'Tartózkodom']);
+  };
+
   const handleDeleteItem = (index: number) => {
     const updatedValue = [...value];
     updatedValue.splice(index, 1);
@@ -92,9 +96,14 @@ function StringList({ value = [], onChange }: StringListProps) {
           </IconButton>
         </HStack>
       ))}
-      <Button onClick={handleAddItem} variant='ghost' leftIcon={<TbPlus />}>
-        {l('button.add')}
-      </Button>
+      <HStack>
+        <Button onClick={handleAddItem} variant='ghost' leftIcon={<TbPlus />}>
+          {l('button.addOption')}
+        </Button>
+        <Button onClick={handleAddTriple} variant='ghost' leftIcon={<TbPlus />}>
+          {l('button.triple')}
+        </Button>
+      </HStack>
     </VStack>
   );
 }

@@ -27,15 +27,16 @@ import { confidentialSubmissionValidation, submissionValidation } from '../../ut
 import { ErrorPage } from '../utility/Error.page';
 import { LoadingPage } from '../utility/Loading.page';
 import { FillPollDisabledPage } from './FillPollDisabled.page';
+import { FillPollSuccessPage } from './FillPollSuccess.page';
 
 export function FillPollPage() {
   const { id } = useParams();
   const { data, isLoading, isError } = usePublicPoll(id);
-  const { isAuthenticated, user } = useAuthContext();
+  const { user } = useAuthContext();
   const navigate = useNavigate();
   const { isLoading: isSubmitLoading, mutate } = useCreateSubmission(id, () => navigate(UIPaths.FILL_SUCCESS));
   const form = useForm<CreateSubmissionDto>({
-    resolver: yupResolver(data?.confidential ? confidentialSubmissionValidation : submissionValidation),
+    resolver: yupResolver(data?.confidential || data?.group ? confidentialSubmissionValidation : submissionValidation),
     defaultValues: { name: '', answers: getDefaultAnswerArray(data?.answerOptions ?? []) },
   });
   const {
@@ -47,9 +48,6 @@ export function FillPollPage() {
 
   useEffect(() => {
     if (data) {
-      if (data.confidential && !isAuthenticated) {
-        navigate(UIPaths.LOGIN);
-      }
       reset({ answers: getDefaultAnswerArray(data.answerOptions) });
     }
   }, [data]);
@@ -57,7 +55,7 @@ export function FillPollPage() {
   if (isLoading) return <LoadingPage />;
   if (!data || isError) return <ErrorPage message={l('error.notFound')} />;
   const onSubmit = (values: CreateSubmissionDto) => {
-    if (data.confidential) {
+    if (data.confidential || data.group) {
       mutate({ ...values, name: user?.authId ?? '' });
     } else {
       mutate(values);
@@ -66,6 +64,7 @@ export function FillPollPage() {
   if (!data.enabled) {
     return <FillPollDisabledPage title={data.question} />;
   }
+  if (data.submission) return <FillPollSuccessPage />;
   return (
     <Page title={data.question}>
       <FormProvider {...form}>
@@ -73,7 +72,7 @@ export function FillPollPage() {
           <Card>
             <CardBody>
               <VStack spacing={5}>
-                {!data.confidential && (
+                {!data.confidential && !data.group && (
                   <FormControl isInvalid={!!errors.name}>
                     <FormLabel>{l('form.poll.label.name')}</FormLabel>
                     <Input {...register('name')} />

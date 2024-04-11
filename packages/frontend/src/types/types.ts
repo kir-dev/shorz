@@ -11,6 +11,7 @@ export type LinkDocument = Document<Link>;
 export type PollDocument = Document<Poll>;
 export type SubmissionDocument = Document<Submission>;
 export type PollDocumentWithSubmissions = Document<PollWithSubmissions>;
+export type GroupDocument = Document<Group>;
 
 export enum PollType {
   SINGLE,
@@ -25,13 +26,19 @@ export type Poll = {
   question: string;
   type: PollType;
   answerOptions: string[];
+  group?: string;
+  submission?: SubmissionDocument;
 };
 
 export type ConfidentialPollResult = {
   key: string;
 } & { [K in SubmissionAnswerValue]: number };
 
-export type PollWithSubmissions = Poll & { submissions?: SubmissionDocument[]; results?: ConfidentialPollResult[] };
+export type PollWithSubmissions = Poll & {
+  submissions?: SubmissionDocument[];
+  results?: ConfidentialPollResult[];
+  notVoted: string[];
+};
 
 export enum SubmissionAnswerValue {
   NO,
@@ -60,6 +67,23 @@ export type Link = {
   shortId: string;
   url: string;
   timestamps: number[];
+};
+
+export type Group = {
+  name: string;
+  admin: string;
+  memberIds: string[];
+};
+
+export type PollWithSubmissionsDocument = PollDocument & {
+  submissions: SubmissionDocument[];
+};
+
+export type GroupDetails = {
+  name: string;
+  isAdmin: boolean;
+  members: UserDocument[];
+  polls: PollWithSubmissionsDocument[];
 };
 
 export type RouterItem = MenuPage | RoutePage;
