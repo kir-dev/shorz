@@ -29,7 +29,7 @@ export class SubmissionService {
     if (poll.group && !poll.group.memberIds.includes(user._id.toString())) {
       throw new ForbiddenException('Te nem szavazhatsz ezen a szavazáson!');
     }
-    if (poll.confidential) {
+    if (poll.confidential || poll.group) {
       const submissions = await this.submissionModel.find({ name: user.authId, poll: poll._id });
       if (submissions.length > 0) throw new ConflictException('Már szavaztál ezen a szavazáson!');
     }

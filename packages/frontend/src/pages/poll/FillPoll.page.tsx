@@ -36,7 +36,7 @@ export function FillPollPage() {
   const navigate = useNavigate();
   const { isLoading: isSubmitLoading, mutate } = useCreateSubmission(id, () => navigate(UIPaths.FILL_SUCCESS));
   const form = useForm<CreateSubmissionDto>({
-    resolver: yupResolver(data?.confidential ? confidentialSubmissionValidation : submissionValidation),
+    resolver: yupResolver(data?.confidential || data?.group ? confidentialSubmissionValidation : submissionValidation),
     defaultValues: { name: '', answers: getDefaultAnswerArray(data?.answerOptions ?? []) },
   });
   const {
@@ -55,7 +55,7 @@ export function FillPollPage() {
   if (isLoading) return <LoadingPage />;
   if (!data || isError) return <ErrorPage message={l('error.notFound')} />;
   const onSubmit = (values: CreateSubmissionDto) => {
-    if (data.confidential) {
+    if (data.confidential || data.group) {
       mutate({ ...values, name: user?.authId ?? '' });
     } else {
       mutate(values);
@@ -72,7 +72,7 @@ export function FillPollPage() {
           <Card>
             <CardBody>
               <VStack spacing={5}>
-                {!data.confidential && (
+                {!data.confidential && !data.group && (
                   <FormControl isInvalid={!!errors.name}>
                     <FormLabel>{l('form.poll.label.name')}</FormLabel>
                     <Input {...register('name')} />

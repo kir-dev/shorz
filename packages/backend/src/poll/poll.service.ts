@@ -41,18 +41,22 @@ export class PollService {
         .exec()
     )?.[0];
     if (!pollWithSubmissions) throw new NotFoundException('A szavazás nem található!');
-    if (!pollWithSubmissions.confidential) return pollWithSubmissions;
+    if (!pollWithSubmissions.confidential && !pollWithSubmissions.group) return pollWithSubmissions;
     const { submissions, ...poll } = pollWithSubmissions;
-
+    let submissionsWithNames = [];
     let notVoted = [];
-    if (poll.group && poll.confidential) {
+    if (poll.group) {
       const group = await this.groupModel.findById(poll.group);
       const members = await this.userModel.find({ _id: { $in: group.memberIds } });
       const submissionNames = submissions.map((s) => s.name);
       notVoted = members.filter((user) => !submissionNames.includes(user.authId)).map((user) => user.displayName);
+      submissionsWithNames = submissions.map((s) => ({
+        ...s,
+        name: members.find((m) => m.authId === s.name)?.displayName ?? s.name,
+      }));
     }
 
-    if (pollWithSubmissions.enabled || submissions.length === 0) {
+    if ((pollWithSubmissions.confidential && pollWithSubmissions.enabled) || submissions.length === 0) {
       return { ...poll, notVoted };
     } else {
       const results: ConfidentialPollResult[] = poll.answerOptions.map((k) => ({
@@ -70,17 +74,25 @@ export class PollService {
           0
         ),
       }));
+      if (poll.confidential) {
+        return {
+          ...poll,
+          results,
+          notVoted,
+        };
+      }
       return {
         ...poll,
         results,
         notVoted,
+        submissions: submissionsWithNames.length ? submissionsWithNames : submissions,
       };
     }
   }
 
   async getPublicPollById(id: Types.ObjectId, user?: UserDocument) {
     const poll = await this.pollModel.findById(id).select({ user: 0 });
-    if (poll?.confidential) {
+    if (poll?.confidential || poll?.group) {
       if (!user) throw new UnauthorizedException('A szavazás bizalmas!');
       const submission = await this.submissionModel.findOne({
         poll: id,

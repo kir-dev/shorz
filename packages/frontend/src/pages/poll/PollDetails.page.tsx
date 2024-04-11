@@ -122,7 +122,7 @@ export function PollDetailsPage() {
             </HStack>
             {pollPatch.isError && <Text color='red'>{l('error.general')}</Text>}
           </Box>
-          {data.group && data.confidential && data.notVoted.length > 0 && <NotVotedMembers notVoted={data.notVoted} />}
+          {data.group && data.notVoted.length > 0 && <NotVotedMembers notVoted={data.notVoted} />}
           {data.confidential ? (
             data.enabled ? (
               <EmptyListPlaceholder text={l('page.pollDetails.activeConfidential')} hideArrow />
@@ -136,6 +136,7 @@ export function PollDetailsPage() {
           ) : (
             <EmptyListPlaceholder text={l('page.pollDetails.empty')} hideArrow />
           )}
+          {data.group && !data.confidential && <ConfidentialVoteResult results={data.results ?? []} />}
         </VStack>
       </CardBody>
       <CardFooter>
